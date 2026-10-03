@@ -54,7 +54,7 @@ export default function Contact() {
       </div>
 
       <div className="container-x relative z-10 flex flex-1 flex-col items-center text-center">
-        <SectionHeading index="07" label="Contact" title="Let's build something" muted="that flies." center />
+        <SectionHeading index="08" label="Contact" title="Let's build something" muted="that flies." center />
 
         <p data-reveal className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-dim">
           Have a product, a platform, or just a good conversation about space and fighter jets in

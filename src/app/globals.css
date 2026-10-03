@@ -227,3 +227,73 @@ html.has-reticle [data-cursor] {
     animation: none;
   }
 }
+
+/* ───────────── Cosmos: planet hopping ───────────── */
+.cosmos-chrome {
+  transition:
+    opacity 0.45s ease,
+    filter 0.45s ease;
+}
+.cosmos[data-phase="transitioning"] .cosmos-chrome {
+  opacity: 0;
+  filter: blur(8px);
+  pointer-events: none;
+}
+.cosmos-title,
+.cosmos-fact,
+.cosmos-caption {
+  opacity: 0;
+}
+.cosmos[data-content="in"] .cosmos-title {
+  animation: cosmos-title-rise 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cosmos[data-content="in"] .cosmos-fact {
+  animation: cosmos-fact-rise 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.cosmos[data-content="in"] .cosmos-fact:nth-child(1) { animation-delay: 0.52s; }
+.cosmos[data-content="in"] .cosmos-fact:nth-child(2) { animation-delay: 0.68s; }
+.cosmos[data-content="in"] .cosmos-fact:nth-child(3) { animation-delay: 0.84s; }
+.cosmos[data-content="in"] .cosmos-fact:nth-child(4) { animation-delay: 1s; }
+.cosmos[data-content="in"] .cosmos-caption {
+  animation: cosmos-caption 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.cosmos-row {
+  animation: cosmos-row 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.cosmos-dot {
+  animation: cosmos-dot 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+@keyframes cosmos-title-rise {
+  from { opacity: 0; filter: blur(12px); transform: translateY(42px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@keyframes cosmos-fact-rise {
+  from { opacity: 0; filter: blur(7px); transform: translateY(18px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@keyframes cosmos-caption {
+  from { opacity: 0; filter: blur(7px); transform: translateY(22px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+@keyframes cosmos-row {
+  from { opacity: 0.35; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes cosmos-dot {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* The fixed altitude HUD steps aside while the planet section is on screen */
+html[data-cosmos="in"] [data-hud] {
+  opacity: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmos *,
+  .cosmos-chrome {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

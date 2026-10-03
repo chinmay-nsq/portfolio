@@ -38,6 +38,7 @@ expands to carry you from Mars → Earth → Venus. It loads its media from the 
 | Starfield canvas, nebula, flybys | `StarField.tsx`, `Nebula.tsx`, `Flyby.tsx` |
 | Altitude / Mach HUD (scrolling = ascent to orbit) | `src/components/HudTelemetry.tsx` |
 | Jet schematic + outline mark | `src/components/Jet.tsx` |
+| Planet hopping (portal section, lazy-loaded media) | `src/components/sections/Cosmos.tsx`, `src/data/cosmos.ts` |
 | Sections | `src/components/sections/*` |
 
 `prefers-reduced-motion` is respected: the loader becomes a short fade, and the starfield, flybys,

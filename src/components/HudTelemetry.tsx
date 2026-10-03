@@ -84,6 +84,7 @@ export default function HudTelemetry() {
   return (
     <>
       <div
+        data-hud
         aria-hidden="true"
         className={`pointer-events-none fixed bottom-6 left-6 z-40 hidden items-stretch gap-4 rounded-md border border-white/[0.08] bg-void/70 px-4 py-3 font-mono text-[10px] tracking-[0.14em] backdrop-blur-md transition-opacity duration-1000 xl:flex ${revealed ? "opacity-100" : "opacity-0"}`}
       >
