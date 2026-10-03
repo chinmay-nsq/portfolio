@@ -1,26 +1,229 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ───────────── Design tokens ───────────── */
+@theme static {
+  --color-void: #06070a;
+  --color-deep: #0a0c11;
+  --color-panel: #0d0f15;
+  --color-ink: #ececf1;
+  --color-dim: #9296a4;
+  --color-faint: #5a5e6b;
+  /* steel blue – labels, links, quiet highlights */
+  --color-hud: #9db8d6;
+  /* signal orange – used sparingly (status, active, afterburner) */
+  --color-burner: #ff6a2b;
+  --color-mint: #6fcf97;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-inter-tight), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-void);
+  scrollbar-width: thin;
+  scrollbar-color: #232733 var(--color-void);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(157, 184, 214, 0.3);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--color-hud);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ───────────── Lenis (smooth scroll) base styles ───────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Hide the native cursor only when the custom pointer is active */
+html.has-reticle,
+html.has-reticle a,
+html.has-reticle button,
+html.has-reticle [data-cursor] {
+  cursor: none;
+}
+
+/* ───────────── Components ───────────── */
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Small technical label: "01 — About" */
+  .eyebrow {
+    @apply flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-dim;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  /* Section headline */
+  .h2 {
+    @apply font-display font-medium text-white;
+    font-size: clamp(2.1rem, 4.8vw, 3.9rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  /* Flat, hairline panel */
+  .panel {
+    position: relative;
+    background: rgba(255, 255, 255, 0.022);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    transition:
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+  .panel:hover {
+    border-color: rgba(255, 255, 255, 0.17);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  /* Faint cursor-following light on panels */
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.05),
+      transparent 45%
+    );
+  }
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+
+  .btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-5 font-sans text-sm font-medium transition-colors duration-300;
+  }
+  .btn-primary {
+    @apply bg-ink text-void hover:bg-white;
+  }
+  .btn-ghost {
+    @apply border border-white/15 bg-transparent text-ink hover:border-white/35 hover:bg-white/5;
+  }
+
+  .text-muted-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(236, 236, 241, 0.2);
+  }
+
+  .scanlines {
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  .grain {
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1.2s steps(6) infinite;
+  }
+}
+
+/* ───────────── Keyframes ───────────── */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.15; }
+}
+@keyframes sweep {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes runway {
+  to { background-position: -48px 0; }
+}
+@keyframes scrollcue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+@keyframes scan {
+  0% { transform: translateY(-120%); }
+  100% { transform: translateY(520%); }
+}
+@keyframes flicker {
+  0% { opacity: 0.75; transform: scaleY(0.85); }
+  100% { opacity: 1; transform: scaleY(1.1); }
+}
+
+.blink { animation: blink 1.4s steps(1) infinite; }
+.blink-slow { animation: blink 2.4s steps(1) infinite; }
+
+.jet-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: flicker 0.12s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .blink,
+  .blink-slow,
+  .jet-flame {
+    animation: none;
+  }
 }
