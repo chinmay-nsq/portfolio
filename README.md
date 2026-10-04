@@ -34,6 +34,27 @@ Everything lives in [`src/data/portfolio.ts`](src/data/portfolio.ts):
 - `experience`, `projects` (add `live` / `repo` URLs to show buttons), `skillGroups`, `achievements`, `education`
 - `currentMission` — the GenieHire section (add an `href` to show a link)
 
+## SEO & sharing
+
+Built into the static export (verified with Lighthouse: SEO 100, Accessibility 100, Best Practices 100):
+
+- **Metadata** — title, description, canonical URL, robots directives, Open Graph + Twitter cards ([`layout.tsx`](src/app/layout.tsx), copy in [`src/lib/site.ts`](src/lib/site.ts)).
+- **Share image** — [`public/og.jpg`](public/og.jpg), 1200×630, echoing the hero (name tucked behind the Earth).
+- **Structured data** — JSON-LD `Person` + `ProfilePage` + `WebSite` ([`JsonLd.tsx`](src/components/JsonLd.tsx)).
+- **`robots.txt`, `sitemap.xml`, `manifest.webmanifest`**, favicon, Apple touch icon and PWA icons.
+- `/planet-jumping/` is an experiment and is marked `noindex`; the 404 page is too.
+
+The public URL comes from `NEXT_PUBLIC_SITE_URL`, which the deploy workflow sets automatically (`https://<user>.github.io/<repo>`).
+
+**After the first deploy**
+
+1. [Google Search Console](https://search.google.com/search-console) → *Add property* → *URL prefix* → your site URL.
+2. Verify with the **HTML tag** method: copy only the `content="…"` token, then in the repo go to *Settings → Secrets and variables → Actions → Variables* and add `GOOGLE_SITE_VERIFICATION`. Re-run the deploy workflow and click *Verify*.
+3. *Sitemaps* → submit `sitemap.xml`. Then *URL inspection* → *Request indexing* for the home page.
+4. Check the link preview in the [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) and the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (they cache aggressively — use their *Scrape again* button after changing the image).
+
+**For the strongest personal-brand SEO**, serve the site from its own root: either a repo named `<username>.github.io`, or a custom domain (e.g. `chinmaylale.dev`). Add a repository **variable** `CUSTOM_DOMAIN` with that domain, set it under *Settings → Pages → Custom domain*, and re-run the workflow — canonical URLs, sitemap and share tags all switch over automatically. (Search engines only honour `robots.txt` at the *root* of a host, so a `/<repo>/` project site can't control it.)
+
 ## Hero depth effect
 
 Three backdrops share one idea. **Earth is the default**; open `/?hero=nebula` or `/?hero=moon` to compare the others. The Earth and Moon heroes put a photographic planet disc in front of the name so the last letter tucks behind its limb (with a soft cast shadow). The Earth is a real DSCOVR EPIC photo centred on India. The nebula version works differently: The nebula hero draws

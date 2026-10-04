@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import AppShell from "@/components/AppShell";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL, absoluteUrl, siteMeta } from "@/lib/site";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -18,40 +20,68 @@ const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const title = "Chinmay Lale — Software Engineer";
-const description =
-  "Software Engineer building GenieHire, an AI recruitment platform, at Nsquare Experts. Full-stack developer across React, React Native, Node.js and AWS — with a soft spot for astronomy and fighter jets.";
+const ogImage = {
+  url: absoluteUrl(siteMeta.ogImage.path),
+  width: siteMeta.ogImage.width,
+  height: siteMeta.ogImage.height,
+  alt: siteMeta.ogImage.alt,
+  type: "image/jpeg",
+};
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: { default: siteMeta.title, template: `%s | ${siteMeta.name}` },
+  description: siteMeta.description,
+  applicationName: `${siteMeta.name} — Portfolio`,
   keywords: [
     "Chinmay Lale",
+    "Chinmay Kalyan Lale",
     "Software Engineer",
     "Full-stack developer",
-    "React",
-    "Next.js",
+    "React developer",
+    "Next.js developer",
     "Node.js",
     "React Native",
+    "AWS",
     "GenieHire",
     "Nsquare Experts",
+    "portfolio",
   ],
-  authors: [{ name: "Chinmay Kalyan Lale" }],
+  authors: [{ name: "Chinmay Kalyan Lale", url: SITE_URL }],
+  creator: "Chinmay Kalyan Lale",
+  category: "technology",
+  alternates: { canonical: absoluteUrl("/") },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
   openGraph: {
-    title,
-    description,
     type: "website",
+    url: absoluteUrl("/"),
+    siteName: `${siteMeta.name} — Portfolio`,
+    title: siteMeta.title,
+    description: siteMeta.description,
+    locale: siteMeta.locale,
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
+    title: siteMeta.title,
+    description: siteMeta.description,
+    images: [{ url: ogImage.url, alt: ogImage.alt }],
   },
+  formatDetection: { telephone: false, email: false, address: false },
+  // Paste your Search Console token into the NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION variable to verify ownership via a meta tag.
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04050a",
+  themeColor: siteMeta.themeColor,
   colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -65,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <style>{`.grain{display:none}[role="status"][aria-label="Loading portfolio"]{display:none!important}`}</style>
         </noscript>
+        <JsonLd />
         <AppShell>{children}</AppShell>
       </body>
     </html>

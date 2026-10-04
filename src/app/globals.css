@@ -119,6 +119,21 @@ html.has-reticle [data-cursor] {
     background: rgba(255, 255, 255, 0.035);
   }
 
+  /* A card that sits IN FRONT of a <DepthWord>: near-opaque frosted glass, so the letters behind it fade away */
+  .depth-card,
+  .depth-card:hover {
+    background: linear-gradient(180deg, rgba(15, 18, 27, 0.8), rgba(8, 10, 16, 0.86));
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    backdrop-filter: blur(16px) saturate(1.2);
+  }
+  .depth-card {
+    border-color: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 -22px 50px -26px rgba(0, 0, 0, 0.85);
+  }
+  .depth-card:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
   /* Faint cursor-following light on panels */
   .spotlight::after {
     content: "";

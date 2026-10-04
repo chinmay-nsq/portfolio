@@ -84,9 +84,9 @@ export default function Experience() {
       <div className="container-x">
         <SectionHeading index="03" label="Experience" title="Where I've worked" muted="and what I shipped." />
 
-        <ol data-timeline className="relative mt-20">
-          {/* Spine */}
-          <div className="absolute bottom-0 left-[11px] top-0 w-px -translate-x-1/2 bg-white/10 md:left-1/2">
+        <div data-timeline className="relative mt-20">
+          {/* Spine (decorative) */}
+          <div aria-hidden="true" className="absolute bottom-0 left-[11px] top-0 w-px -translate-x-1/2 bg-white/10 md:left-1/2">
             <span data-line-fill className="absolute inset-0 origin-top bg-white/55" />
             <span
               data-comet
@@ -94,6 +94,7 @@ export default function Experience() {
             />
           </div>
 
+          <ol>
           {experience.map((job, i) => {
             const left = i % 2 === 0;
             return (
@@ -164,7 +165,8 @@ export default function Experience() {
               </li>
             );
           })}
-        </ol>
+          </ol>
+        </div>
       </div>
     </section>
   );

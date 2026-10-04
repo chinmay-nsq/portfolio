@@ -26,16 +26,29 @@ jobs:
           cache: npm
 
       # `<user>.github.io` repos are served from the domain root; every other repo from /<repo>/.
-      # (Using a custom domain with a normal repo? Replace this step with: echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV")
-      - name: Work out the base path
+      # Using a custom domain? Add a repository VARIABLE named CUSTOM_DOMAIN (e.g. chinmaylale.dev) and set the same
+      # domain under Settings → Pages. The site is then built for the root of that domain.
+      - name: Work out the base path and public URL
+        env:
+          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
         run: |
           REPO="${GITHUB_REPOSITORY#*/}"
-          if [[ "$REPO" == *.github.io ]]; then BASE=""; else BASE="/$REPO"; fi
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"   # Pages hostnames are lower-case
+          if [[ -n "$CUSTOM_DOMAIN" ]]; then
+            BASE=""; SITE="https://${CUSTOM_DOMAIN}"
+          elif [[ "$REPO" == *.github.io ]]; then
+            BASE=""; SITE="https://${OWNER}.github.io"
+          else
+            BASE="/$REPO"; SITE="https://${OWNER}.github.io/$REPO"
+          fi
           echo "NEXT_PUBLIC_BASE_PATH=$BASE" >> "$GITHUB_ENV"
-          echo "Base path: '${BASE}'"
+          echo "NEXT_PUBLIC_SITE_URL=$SITE" >> "$GITHUB_ENV"   # canonical links, Open Graph, sitemap, JSON-LD
+          echo "Base path: '${BASE}' | Site URL: ${SITE}"
 
       - run: npm ci
       - run: npm run build
+        env:
+          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
 
       - uses: actions/upload-pages-artifact@v5
         with:

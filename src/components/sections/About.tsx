@@ -7,6 +7,7 @@ import { JetMark } from "../Jet";
 import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
 import Counter from "../ui/Counter";
+import DepthWord from "../ui/DepthWord";
 import { useReveal } from "../ui/useReveal";
 import { asset } from "@/lib/asset";
 
@@ -143,10 +144,11 @@ export default function About() {
           <p data-reveal className="eyebrow">
             Beyond the code
           </p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <DepthWord word="Beyond" className="mt-6" maxSize={300} />
+          <div className="grid gap-5 md:grid-cols-2">
             {passions.map((p, i) => (
               <div key={p.title} data-reveal data-reveal-delay={i * 0.08}>
-                <Panel className="flex h-full items-start gap-6 p-6 sm:p-8">
+                <Panel className="depth-card flex h-full items-start gap-6 p-6 sm:p-8">
                   <div className="grid h-14 w-14 shrink-0 place-items-center rounded-md border border-white/10 bg-white/[0.02]">
                     {p.visual}
                   </div>

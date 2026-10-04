@@ -6,6 +6,7 @@ import { projects, type Project } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
 import TechLogo from "../ui/TechLogo";
+import DepthWord from "../ui/DepthWord";
 
 /* ───────────── Wireframe mockups (no screenshots needed) ───────────── */
 
@@ -232,7 +233,8 @@ export default function Projects() {
       <div className="container-x">
         <SectionHeading index="05" label="Projects" title="Selected projects" />
 
-        <div className="mt-14">
+        <DepthWord word="Shipped" className="mt-12" maxSize={300} />
+        <div>
           {projects.map((p, i) => (
             <div
               key={p.id}

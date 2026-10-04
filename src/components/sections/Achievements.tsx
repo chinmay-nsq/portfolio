@@ -5,6 +5,7 @@ import { achievements, education, type Achievement } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
 import Counter from "../ui/Counter";
+import DepthWord from "../ui/DepthWord";
 import TechLogo from "../ui/TechLogo";
 import { useReveal } from "../ui/useReveal";
 
@@ -50,10 +51,11 @@ export default function Achievements() {
       <div className="container-x">
         <SectionHeading index="06" label="Recognition" title="Achievements" muted="& education." />
 
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <DepthWord word="Milestones" className="mt-14" maxSize={300} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {achievements.map((a, i) => (
             <div key={a.title} data-reveal data-reveal-delay={i * 0.07}>
-              <Panel className="tech-group flex h-full flex-col p-6">
+              <Panel className="depth-card tech-group flex h-full flex-col p-6">
                 <div className="flex items-start justify-between">
                   <Icon icon={a.icon} logo={a.logo} />
                   <span className="font-mono text-[10px] tracking-[0.16em] text-faint">0{i + 1}</span>

@@ -6,6 +6,7 @@ import { scrollTo } from "@/lib/scroll";
 import { profile } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Magnetic from "../ui/Magnetic";
+import DepthWord from "../ui/DepthWord";
 import { EarthLimb } from "../Scenery";
 import SpaceVideo from "../ui/SpaceVideo";
 import { useReveal } from "../ui/useReveal";
@@ -79,7 +80,9 @@ export default function Contact() {
           </button>
         </div>
 
-        <div className="mt-14 grid w-full max-w-3xl gap-3 sm:grid-cols-3">
+        <div className="mt-8 w-full max-w-3xl">
+          <DepthWord word="Hello" align="center" maxSize={250} />
+          <div className="grid gap-3 sm:grid-cols-3">
           {channels.map((c, i) => (
             <a
               key={c.label}
@@ -88,7 +91,7 @@ export default function Contact() {
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="panel group block bg-void/60 p-5 text-left backdrop-blur-sm"
+              className="panel depth-card group block p-5 text-left"
             >
               <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
                 {c.label}
@@ -99,6 +102,7 @@ export default function Contact() {
               <div className="mt-3 truncate text-[15px] text-white">{c.value}</div>
             </a>
           ))}
+          </div>
         </div>
 
         {profile.resume && (

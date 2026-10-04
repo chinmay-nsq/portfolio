@@ -158,7 +158,7 @@ export default function Hero() {
       if (reduce) return;
 
       // ── Initial hidden states (the loader covers the page, so this never flashes) ──
-      const name = SplitText.create($$("[data-name]"), { type: "lines", mask: "lines" });
+      const name = SplitText.create($$("[data-name]"), { type: "lines", mask: "lines", aria: "none" });
       gsap.set(name.lines, { yPercent: 112 });
       gsap.set($$("[data-in]"), { opacity: 0, y: 18 });
       const limb = $$("[data-earth]");
@@ -351,7 +351,6 @@ export default function Hero() {
           <div data-name-mouse>
             <h1
               className="mt-7 select-none font-display text-[clamp(4.7rem,15vw,16.5rem)] font-semibold uppercase leading-[0.82] tracking-[-0.05em]"
-              aria-label={`${profile.firstName} ${profile.lastName}`}
             >
               <span data-name className="block text-white">
                 {profile.firstName}
@@ -359,6 +358,7 @@ export default function Hero() {
               <span data-name className="block text-[#8a8fa0]">
                 {profile.lastName}
               </span>
+              <span className="sr-only"> — {profile.role}</span>
             </h1>
           </div>
         </div>
