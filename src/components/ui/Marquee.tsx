@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { fx } from "@/lib/fx";
 import { marqueeWords } from "@/data/portfolio";
+import TechLogo from "./TechLogo";
 
 /** A quiet, instrument-style ticker. Drifts slowly; picks up speed with scroll velocity. */
 export default function Marquee() {
@@ -29,7 +30,8 @@ export default function Marquee() {
   const set = (
     <div className="flex shrink-0 items-center">
       {marqueeWords.map((w) => (
-        <span key={w} className="flex items-center">
+        <span key={w} className="flex items-center gap-3">
+          <TechLogo name={w} className="h-[18px] w-[18px]" />
           <span>{w}</span>
           <span className="mx-8 h-1 w-1 rounded-full bg-faint/70" aria-hidden="true" />
         </span>

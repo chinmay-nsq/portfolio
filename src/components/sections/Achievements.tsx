@@ -5,6 +5,7 @@ import { achievements, education, type Achievement } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
 import Counter from "../ui/Counter";
+import TechLogo from "../ui/TechLogo";
 import { useReveal } from "../ui/useReveal";
 
 const icons: Record<Achievement["icon"], string> = {
@@ -14,7 +15,14 @@ const icons: Record<Achievement["icon"], string> = {
   cloud: "M7 18a4 4 0 01-.6-7.95A5.5 5.5 0 0117 9.5a4.25 4.25 0 01.5 8.5H7z",
 };
 
-function Icon({ icon }: { icon: Achievement["icon"] }) {
+function Icon({ icon, logo }: { icon: Achievement["icon"]; logo?: string }) {
+  if (logo) {
+    return (
+      <span className="grid h-10 w-10 place-items-center rounded-md border border-white/12 text-ink">
+        <TechLogo file={logo} className="h-5 w-5" />
+      </span>
+    );
+  }
   return (
     <span className="grid h-10 w-10 place-items-center rounded-md border border-white/12 text-ink">
       <svg
@@ -45,9 +53,9 @@ export default function Achievements() {
         <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {achievements.map((a, i) => (
             <div key={a.title} data-reveal data-reveal-delay={i * 0.07}>
-              <Panel className="flex h-full flex-col p-6">
+              <Panel className="tech-group flex h-full flex-col p-6">
                 <div className="flex items-start justify-between">
-                  <Icon icon={a.icon} />
+                  <Icon icon={a.icon} logo={a.logo} />
                   <span className="font-mono text-[10px] tracking-[0.16em] text-faint">0{i + 1}</span>
                 </div>
                 <div className="mt-10 font-display text-5xl font-medium leading-none tracking-[-0.025em] text-white tabular-nums">

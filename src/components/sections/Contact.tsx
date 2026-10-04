@@ -7,6 +7,7 @@ import { profile } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Magnetic from "../ui/Magnetic";
 import { EarthLimb } from "../Scenery";
+import SpaceVideo from "../ui/SpaceVideo";
 import { useReveal } from "../ui/useReveal";
 
 const channels = [
@@ -49,14 +50,16 @@ export default function Contact() {
 
   return (
     <section id="contact" ref={root} className="relative flex min-h-screen flex-col overflow-hidden pt-28 sm:pt-36">
+      <SpaceVideo clip="cliffs" opacity={0.5} fade="top" scrim="center" />
+
       <div data-earth className="pointer-events-none absolute inset-x-0 bottom-0">
         <EarthLimb height="46vh" className="relative" />
       </div>
 
       <div className="container-x relative z-10 flex flex-1 flex-col items-center text-center">
-        <SectionHeading index="08" label="Contact" title="Let's build something" muted="that flies." center />
+        <SectionHeading index="07" label="Contact" title="Let's build something" muted="that flies." center />
 
-        <p data-reveal className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-dim">
+        <p data-reveal className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-ink/75">
           Have a product, a platform, or just a good conversation about space and fighter jets in
           mind? Send a message — I&apos;ll get back to you.
         </p>
@@ -109,7 +112,11 @@ export default function Contact() {
         <span>
           © {new Date().getFullYear()} {profile.name}
         </span>
-        <span>Built with Next.js &amp; GSAP</span>
+        <span className="text-center">
+          Built with Next.js &amp; GSAP
+          <br />
+          <span className="text-faint">Space imagery: NASA · STScI · ESA · CSA</span>
+        </span>
         <button type="button" onClick={() => scrollTo(0, 3)} className="transition-colors hover:text-white">
           Back to top ↑
         </button>

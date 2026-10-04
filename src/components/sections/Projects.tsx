@@ -5,6 +5,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import { projects, type Project } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
+import TechLogo from "../ui/TechLogo";
 
 /* ───────────── Wireframe mockups (no screenshots needed) ───────────── */
 
@@ -107,7 +108,7 @@ function ProjectCard({ p }: { p: Project }) {
   return (
     <Panel
       as="article"
-      className="group flex w-full flex-col overflow-hidden lg:h-[clamp(400px,56vh,520px)] lg:w-[min(84vw,1040px)] lg:flex-row"
+      className="group flex w-full flex-col overflow-hidden lg:h-[clamp(420px,62vh,540px)] lg:flex-row"
     >
       {/* Visual */}
       <div
@@ -153,7 +154,8 @@ function ProjectCard({ p }: { p: Project }) {
         <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-7">
           <ul className="flex flex-wrap gap-2">
             {p.tags.map((t) => (
-              <li key={t} className="rounded-[3px] border border-white/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-dim">
+              <li key={t} className="tech-group flex items-center gap-1.5 rounded-[3px] border border-white/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-dim">
+                <TechLogo name={t} className="h-3 w-3" />
                 {t}
               </li>
             ))}
@@ -178,45 +180,39 @@ function ProjectCard({ p }: { p: Project }) {
 
 /* ───────────── Section ───────────── */
 
+const STICKY_TOP = 104; // px from the viewport top where the first card parks
+const STICKY_STEP = 22; // each later card parks a little lower, so the stack "peeks"
+
 export default function Projects() {
   const root = useRef<HTMLElement>(null);
-  const pin = useRef<HTMLDivElement>(null);
-  const track = useRef<HTMLDivElement>(null);
-  const bar = useRef<HTMLSpanElement>(null);
-  const count = useRef<HTMLSpanElement>(null);
 
-  // Desktop: pin the section and slide the cards horizontally while scrolling vertically
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
+
+      // Desktop: cards park under the heading and the next one slides over the last.
+      // The covered card recedes (scales back and dims) to add depth.
       mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-        const el = track.current!;
-        const distance = () => Math.max(0, el.scrollWidth - document.documentElement.clientWidth);
-        gsap.to(el, {
-          x: () => -distance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: pin.current,
-            pin: true,
-            scrub: 0.8,
-            start: "top top",
-            end: () => `+=${distance()}`,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-            onUpdate: (self) => {
-              if (bar.current) bar.current.style.transform = `scaleX(${self.progress})`;
-              if (count.current) {
-                const n = Math.min(projects.length, Math.floor(self.progress * projects.length) + 1);
-                count.current.textContent = String(n).padStart(2, "0");
-              }
-            },
-          },
+        const items = gsap.utils.toArray<HTMLElement>("[data-stack]");
+        items.forEach((item, i) => {
+          const next = items[i + 1];
+          if (!next) return;
+          const inner = item.querySelector<HTMLElement>("[data-stack-inner]");
+          const dim = item.querySelector<HTMLElement>("[data-stack-dim]");
+          const range = {
+            trigger: next,
+            start: "top 92%",
+            end: `top ${STICKY_TOP + (i + 1) * STICKY_STEP}px`,
+            scrub: true,
+          };
+          gsap.to(inner, { scale: 0.94, ease: "none", scrollTrigger: range });
+          gsap.to(dim, { opacity: 0.6, ease: "none", scrollTrigger: range });
         });
       });
 
-      // Stacked layout: cards rise in as they scroll into view
+      // Smaller screens: a plain stacked list whose cards rise in
       mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-card]").forEach((card) => {
+        gsap.utils.toArray<HTMLElement>("[data-stack]").forEach((card) => {
           gsap.from(card, {
             y: 40,
             opacity: 0,
@@ -232,28 +228,29 @@ export default function Projects() {
   );
 
   return (
-    <section id="projects" ref={root} className="relative">
-      <div ref={pin} className="py-28 sm:py-32 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:overflow-hidden lg:py-0">
-        <div className="container-x">
-          <SectionHeading index="05" label="Projects" title="Selected projects" />
-          <div className="mt-8 hidden items-center gap-5 font-mono text-[10px] uppercase tracking-[0.18em] text-faint lg:flex">
-            <span>
-              <span ref={count} className="text-white">01</span> / {String(projects.length).padStart(2, "0")}
-            </span>
-            <span className="relative h-px flex-1 bg-white/10">
-              <span ref={bar} className="absolute inset-0 origin-left scale-x-0 bg-white/60" />
-            </span>
-            <span>Scroll →</span>
-          </div>
-        </div>
+    <section id="projects" ref={root} className="relative py-28 sm:py-36">
+      <div className="container-x">
+        <SectionHeading index="05" label="Projects" title="Selected projects" />
 
-        <div
-          ref={track}
-          className="container-x mt-12 flex flex-col gap-8 lg:mx-0 lg:mt-10 lg:w-max lg:max-w-none lg:flex-row lg:gap-10 lg:pl-[max(3rem,calc((100vw-1280px)/2+3rem))] lg:pr-12"
-        >
-          {projects.map((p) => (
-            <div key={p.id} data-card className="lg:shrink-0">
-              <ProjectCard p={p} />
+        <div className="mt-14">
+          {projects.map((p, i) => (
+            <div
+              key={p.id}
+              data-stack
+              style={{ top: STICKY_TOP + i * STICKY_STEP }}
+              className={`lg:sticky ${i < projects.length - 1 ? "mb-8 lg:mb-0 lg:pb-[18vh]" : ""}`}
+            >
+              <div
+                data-stack-inner
+                className="relative origin-top rounded-md bg-[#0b0d13] shadow-[0_-24px_60px_-28px_rgba(0,0,0,.9)]"
+              >
+                <ProjectCard p={p} />
+                <div
+                  data-stack-dim
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-md bg-void opacity-0"
+                />
+              </div>
             </div>
           ))}
         </div>

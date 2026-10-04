@@ -5,6 +5,7 @@ import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { experience } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
+import TechLogo from "../ui/TechLogo";
 
 const NUM = /(\b\d[\d,.]*(?:\+|%|ms)?)/g;
 
@@ -150,8 +151,9 @@ export default function Experience() {
                         {job.tags.map((t) => (
                           <li
                             key={t}
-                            className="rounded-[3px] border border-white/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-dim"
+                            className="tech-group flex items-center gap-1.5 rounded-[3px] border border-white/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-dim"
                           >
+                            <TechLogo name={t} className="h-3 w-3" />
                             {t}
                           </li>
                         ))}

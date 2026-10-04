@@ -8,6 +8,7 @@ import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
 import Counter from "../ui/Counter";
 import { useReveal } from "../ui/useReveal";
+import { asset } from "@/lib/asset";
 
 const dossier = [
   ["Name", profile.name],
@@ -70,7 +71,7 @@ export default function About() {
 
               <div className="relative mt-5 aspect-[5/4] overflow-hidden rounded-[3px] border border-white/10 bg-black/30">
                 {profile.photo ? (
-                  <Image src={profile.photo} alt={profile.name} fill sizes="(min-width:1024px) 40vw, 90vw" className="object-cover" />
+                  <Image src={asset(profile.photo)} alt={profile.name} fill sizes="(min-width:1024px) 40vw, 90vw" className="object-cover" />
                 ) : (
                   <>
                     <div

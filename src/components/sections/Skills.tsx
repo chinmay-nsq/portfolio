@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { skillGroups } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
+import TechLogo from "../ui/TechLogo";
+import SpaceVideo from "../ui/SpaceVideo";
 import { useReveal } from "../ui/useReveal";
 
 /** Orbit stage is authored at this size and scaled down to fit narrower containers. */
@@ -62,7 +64,7 @@ function Orbit() {
           const a = ((m.base + SPEEDS[m.g] * t) * Math.PI) / 180;
           const near = (Math.sin(a) + 1) / 2;
           m.el.style.transform = `translate3d(${CX + rx * Math.cos(a)}px, ${CY + ry * Math.sin(a)}px, 0) translate(-4px, -50%) scale(${0.8 + near * 0.3})`;
-          m.el.style.opacity = String(0.35 + near * 0.65);
+          m.el.style.opacity = String(0.5 + near * 0.5);
           m.el.style.zIndex = String(Math.round(near * 100));
         }
       };
@@ -134,18 +136,11 @@ function Orbit() {
                   data-idx={j}
                   onPointerEnter={() => setHoverBoth(g.id)}
                   onPointerLeave={() => setHoverBoth(null)}
-                  className="absolute left-0 top-0 flex cursor-default items-center gap-2.5 whitespace-nowrap"
+                  className="tech-group absolute left-0 top-0 flex cursor-default items-center gap-2 whitespace-nowrap transition-colors duration-300"
+                  style={{ color: dim ? "rgba(146,150,164,.4)" : active ? "#ffffff" : "#c4c7d1" }}
                 >
-                  <span
-                    className="block h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300"
-                    style={{ background: active ? "#ff6a2b" : "#ececf1", opacity: dim ? 0.3 : 1 }}
-                  />
-                  <span
-                    className="font-mono text-[11px] uppercase tracking-[0.12em] transition-colors duration-300"
-                    style={{ color: dim ? "rgba(146,150,164,.4)" : active ? "#ffffff" : "#c4c7d1" }}
-                  >
-                    {item}
-                  </span>
+                  <TechLogo name={item} lit={active} className="h-[17px] w-[17px]" />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em]">{item}</span>
                 </div>
               );
             }),
@@ -180,6 +175,7 @@ export default function Skills() {
 
   return (
     <section id="skills" ref={root} className="relative py-28 sm:py-36">
+      <SpaceVideo clip="nebula" opacity={0.34} fade="both" />
       <div className="container-x">
         <SectionHeading index="04" label="Skills" title="The stack" muted="I work with." />
 
@@ -208,8 +204,9 @@ export default function Skills() {
                     {g.items.map((s) => (
                       <li
                         key={s}
-                        className="rounded-[3px] border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[13px] text-ink/90"
+                        className="tech-group flex items-center gap-2 rounded-[3px] border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[13px] text-ink/90"
                       >
+                        <TechLogo name={s} className="h-3.5 w-3.5 text-dim" />
                         {s}
                       </li>
                     ))}

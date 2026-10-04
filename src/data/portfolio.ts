@@ -43,7 +43,7 @@ export const stats = [
   { value: 5000, suffix: "+", label: "Daily active users served" },
   { value: 99.9, suffix: "%", label: "Production uptime on AWS", decimals: 1 },
   { value: 25, suffix: "+", label: "REST APIs designed & shipped" },
-  { value: 300, suffix: "+", label: "LeetCode problems solved" },
+  { value: 450, suffix: "+", label: "LeetCode problems solved" },
 ];
 
 export const currentMission = {
@@ -247,16 +247,19 @@ export type Achievement = {
   title: string;
   text: string;
   icon: "code" | "trophy" | "flag" | "cloud";
+  /** File in /public/logos (no extension) shown instead of the generic icon. */
+  logo?: string;
 };
 
 export const achievements: Achievement[] = [
   {
-    value: "300+",
-    count: 300,
+    value: "450+",
+    count: 450,
     suffix: "+",
     title: "LeetCode problems",
     text: "Solved across a wide range of topics, sharpening data-structure and algorithm fundamentals.",
     icon: "code",
+    logo: "leetcode",
   },
   {
     value: "2nd",
@@ -276,6 +279,7 @@ export const achievements: Achievement[] = [
     title: "Google Cloud badges",
     text: "Digital badges in cloud architecture and data engineering from Google Cloud Skill Boost.",
     icon: "cloud",
+    logo: "googlecloud",
   },
 ];
 
