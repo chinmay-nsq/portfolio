@@ -21,10 +21,9 @@ export const profile = {
 };
 
 export const navLinks = [
-  { id: "about", label: "About" },
-  { id: "work", label: "Work" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
+  { id: "performance", label: "Performance" },
+  { id: "apps", label: "Apps" },
+  { id: "specs", label: "Tech specs" },
 ] as const;
 
 export type Job = {
@@ -258,6 +257,8 @@ export const education = [
     degree: "B.Tech in Computer Science",
     period: "Aug 2020 — May 2024",
     note: "CGPA 7.5 / 10",
+    /** How the education section tells it. */
+    story: "Assembled a B.Tech in Computer Science at N. K. Orchid College, Solapur. Four years of compiling, breaking and recompiling. Shipped in 2024 with a 7.5 CGPA.",
   },
   {
     school: "Sangmeshwar College",
@@ -265,5 +266,40 @@ export const education = [
     degree: "Class 12 (HSC): Physics, Chemistry, Mathematics",
     period: "Jun 2018 — May 2020",
     note: "",
+    story: "Flashed the first firmware at Sangmeshwar College, Solapur: Physics, Chemistry and Maths, the HSC build. Every update since has been installed on top of it.",
   },
+];
+
+/** The human part of the spec sheet. */
+export const personalSpecs = [
+  {
+    label: "Operating system",
+    text: "Every now and then I install something new on my laptop just to poke at it and see what it can do. Most experiments start with “what happens if I…”.",
+  },
+  {
+    label: "Expansion port",
+    text: "One ESP32 board, for the days software alone isn't enough to play with.",
+  },
+  {
+    label: "Battery",
+    text: "Recharged on a badminton court.",
+  },
+];
+
+/** "Before me / after me" benchmarks. `after` is relative to a before of 100. Each cites a footnote. */
+export const benchmarks = [
+  { label: "Invoice lookup time", after: 60, result: "40% faster", note: 3 },
+  { label: "Manual invoicing work", after: 20, result: "80% less", note: 4 },
+  { label: "Server performance under load", after: 130, result: "30% more", note: 5 },
+  { label: "Organic search ranking", after: 120, result: "20% higher", note: 6 },
+];
+
+/** The fine print. Numbers on the page point here. */
+export const footnotes = [
+  "5,000+ daily active users on the React Native app I built and maintained at Social Continent, Feb–Sept 2025.",
+  "99.9% uptime for that app's deployment on AWS EC2, Social Continent, 2025.",
+  "Redis caching on invoice retrieval at Aarya Global Technologies, 2024: average response time down 40%.",
+  "The automatic invoice generator I built at Aarya Global Technologies, 2024, cut manual work by 80%.",
+  "MongoDB query and backend tuning at Aarya Global Technologies, 2024: 30% better server performance under load testing.",
+  "Meta tags, structured data and performance work at Social Continent, 2024–2025: organic ranking up 20% across 15+ target keywords.",
 ];
