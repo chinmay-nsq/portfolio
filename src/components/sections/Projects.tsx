@@ -94,7 +94,7 @@ export default function Projects() {
   return (
     <section id="projects" className="shell scroll-mt-14 pt-24">
       <GuideCard label="Projects" title="Things I've built." slot={2}>
-        Three apps, three different stacks. Each card comes with an illustration, as all good catalogue entries do.
+        Three apps, each built front to back. Every card comes with an illustration, as all good catalogue entries do.
       </GuideCard>
 
       <div className="mt-6 space-y-6">
@@ -104,11 +104,11 @@ export default function Projects() {
             <Card key={p.id} as="article" call={`${start}\n${cutter(p.name)}`} stamp={<Stamp>Shipped {end}</Stamp>}>
               <div className="grid gap-x-10 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_290px]">
                 <div>
-                  <h3 className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[56px] tracking-[-0.025em]">
+                  <h3 className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.025em]">
                     {p.name}
                   </h3>
-                  <p className="text-[17px] font-medium leading-7">{p.tagline}</p>
-                  <p className="typed text-ink-2">1 web app : ill. ; {p.tags.join(", ")}.</p>
+                  <p className="mt-2 text-[17px] font-medium leading-7">{p.tagline}</p>
+                  <p className="typed text-ink-2">1 web app : illustrated ; {p.tags.join(", ")}.</p>
 
                   <ul className="mt-7 max-w-[62ch] text-[16px] leading-7 text-ink-2">
                     {p.points.map((pt) => (

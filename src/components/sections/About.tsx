@@ -20,7 +20,7 @@ export default function About() {
 
       <Card as="article" call={"NOTES\np. 2"} className="mt-6">
         <div className="max-w-[64ch] space-y-7 text-[17px] leading-7 text-ink-2">
-          <p className="font-display text-[clamp(1.35rem,2.4vw,1.6rem)] font-medium leading-7 tracking-[-0.01em] text-ink sm:leading-[42px]">
+          <p className="font-display text-[clamp(1.35rem,2.4vw,1.6rem)] font-medium leading-[1.35] tracking-[-0.01em] text-ink">
             Most of my work lives in the part of an app nobody screenshots.
           </p>
           <p>
@@ -40,19 +40,19 @@ export default function About() {
           </p>
         </div>
 
-        <dl className="mt-14 grid gap-x-8 border-y border-ink/10 sm:grid-cols-3">
+        <ul className="mt-14 grid gap-x-8 border-y border-ink/10 sm:grid-cols-3">
           {stats.map((s) => (
-            <div
+            <li
               key={s.label}
-              className="flex flex-col-reverse border-ink/10 py-5 [&:not(:first-child)]:border-t sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:border-t-0 sm:[&:not(:first-child)]:pl-8"
+              className="border-ink/10 py-5 [&:not(:first-child)]:border-t sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:border-t-0 sm:[&:not(:first-child)]:pl-8"
             >
-              <dt className="mt-3 text-[15px] leading-6 text-ink-2">{s.label}</dt>
-              <dd className="font-display text-[clamp(2.4rem,4.4vw,3.25rem)] font-semibold leading-none tracking-[-0.03em] tabular-nums">
+              <p className="font-display text-[clamp(2.4rem,4.4vw,3.25rem)] font-semibold leading-none tracking-[-0.03em] tabular-nums">
                 <Counter value={s.value} suffix={s.suffix} decimals={s.decimals} />
-              </dd>
-            </div>
+              </p>
+              <p className="mt-3 text-[15px] leading-6 text-ink-2">{s.label}</p>
+            </li>
           ))}
-        </dl>
+        </ul>
 
         <dl className="typed mt-14 grid grid-cols-[auto_1fr] gap-x-8 text-ink-2">
           {holdings.map(([k, v]) => (

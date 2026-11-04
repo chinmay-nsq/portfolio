@@ -25,7 +25,7 @@ export default function Skills() {
                     {e.refs.length > 0 && (
                       <>
                         <span aria-hidden="true" className="min-w-4 flex-1 translate-y-[-5px] border-b border-dotted border-ink/35" />
-                        <span className="typed min-w-0 text-right !text-[13px] text-ink-2">
+                        <span className="typed min-w-0 text-right !text-[13px] text-ink-2 sm:shrink-0">
                           <span className="sr-only">used at </span>
                           {e.refs.join(", ")}
                         </span>

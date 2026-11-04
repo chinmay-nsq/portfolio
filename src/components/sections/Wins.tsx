@@ -26,7 +26,7 @@ export default function Wins() {
       </Card>
 
       <Card as="article" call={"HOLDINGS\nEDU"} className="mt-6">
-        <h3 className="font-display text-[clamp(1.6rem,3vw,2.1rem)] font-semibold leading-[56px] tracking-[-0.02em]">
+        <h3 className="font-display text-[clamp(1.6rem,3vw,2.1rem)] font-semibold leading-[1.15] tracking-[-0.02em]">
           Where I studied.
         </h3>
         <ol className="mt-7 space-y-7">

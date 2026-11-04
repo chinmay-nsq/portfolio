@@ -13,7 +13,7 @@ Audience and job: anyone who might hire or work with Chinmay (recruiters, hiring
 
 THESIS: The portfolio is a library card catalogue of one engineer. Every job, project and win is a filed index card read in bibliographic form (call number, main entry, imprint, notes, subject tracings, due-date stamp). It refuses the dev-portfolio default of dark hero + timeline + card grid.
 
-OWN-WORLD: Cool steel-cabinet gray ground (#E3E6EA family); white index cards with one red header rule and faint blue ruled lines on a 28px baseline, a punched rod hole at bottom centre; near-black ink; a single red ink reserved for the CHECKED OUT stamp on the current job. Guide-card tabs are the navigation. Bricolage Grotesque for headings, Geist for reading text, Courier Prime only for typed catalogue data (call numbers, dates, tracings). The close is the drawer front: dark steel with a brass label holder.
+OWN-WORLD: Cool steel-cabinet gray ground (#E3E6EA family); plain white index cards (no ruled lines or header rule: the owner rejected the notebook look on 2026-11-04), a punched rod hole at bottom centre; near-black ink; a single red ink reserved for the CHECKED OUT stamp on the current job. Guide-card tabs are the navigation. Bricolage Grotesque for headings, Geist for reading text, Courier Prime only for typed catalogue data (call numbers, dates, tracings). The close is the drawer front: dark steel with a brass label holder.
 
 STORY: The visitor understands in one card who Chinmay is and what was shipped, believes it because every claim carries a number, and pulls card after card until the drawer front invites them to borrow this engineer by email.
 

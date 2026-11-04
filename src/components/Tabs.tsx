@@ -52,7 +52,7 @@ export default function Tabs() {
           <span className="font-display text-[17px] font-semibold leading-none tracking-[-0.01em]">Chinmay Lale</span>
         </a>
 
-        <nav ref={navRef} aria-label="Sections" className="-mb-px flex min-w-0 items-end gap-1 overflow-x-auto [scrollbar-width:none]">
+        <nav ref={navRef} aria-label="Sections" className="-mb-px flex min-w-0 items-end gap-1 overflow-x-auto [scrollbar-width:none] max-md:pr-6 max-md:[mask-image:linear-gradient(90deg,#000_calc(100%-28px),transparent)]">
           {navLinks.map((l) => {
             const on = active === l.id;
             return (

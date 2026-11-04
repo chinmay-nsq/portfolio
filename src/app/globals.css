@@ -9,8 +9,6 @@
   --color-steel-2: #353b44;
   /* index card */
   --color-card: #ffffff;
-  --color-rule-red: #d4472f;
-  --color-rule-blue: #bccbe0;
   /* ink ramp: the only text tones */
   --color-ink: #17191e;
   --color-ink-2: #4f5561;
@@ -97,36 +95,15 @@ html.lenis body {
     @apply mx-auto w-full max-w-[1080px] px-4 sm:px-8;
   }
 
-  /*
-   * The index card. Red header rule at --rule-y, faint blue rules every 28px below it,
-   * and a punched hole at the bottom centre that the rod passes through.
-   */
+  /* The index card: plain white stock with a punched hole at the bottom centre that the rod passes through. */
   .card {
-    --rule-y: 76px;
     position: relative;
     background-color: var(--color-card);
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0 27px,
-      rgba(110, 150, 205, 0.17) 27px 28px
-    );
-    background-position: 0 var(--rule-y);
-    background-size: 100% calc(100% - var(--rule-y) - 44px);
-    background-repeat: no-repeat;
-    border-radius: 6px;
+    border-radius: 8px;
     box-shadow:
       0 1px 2px rgba(23, 25, 30, 0.06),
       0 18px 36px -22px rgba(23, 25, 30, 0.35);
-    padding: 0 clamp(20px, 4.5vw, 56px) 72px;
-  }
-  .card::before {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    top: var(--rule-y);
-    height: 2px;
-    background: var(--color-rule-red);
-    opacity: 0.85;
+    padding: 0 clamp(20px, 4.5vw, 56px) 76px;
   }
   .card::after {
     content: "";
@@ -142,18 +119,16 @@ html.lenis body {
       inset 0 2px 3px rgba(23, 25, 30, 0.28),
       0 0 0 1px rgba(23, 25, 30, 0.05);
   }
-  /* the band above the red rule: call number on the left, stamp on the right */
+  /* top row: call number on the left, stamp on the right */
   .card-head {
-    @apply flex items-start justify-between gap-4;
-    height: var(--rule-y);
-    padding-top: 18px;
+    @apply flex min-h-[72px] items-center justify-between gap-4 pb-2 pt-6;
   }
 
   /* typed catalogue data: call numbers, dates, tracings */
   .typed {
     font-family: var(--font-typed);
     font-size: 14px;
-    line-height: 28px;
+    line-height: 1.75;
     letter-spacing: 0.01em;
   }
 

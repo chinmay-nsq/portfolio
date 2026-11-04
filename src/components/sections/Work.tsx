@@ -67,10 +67,10 @@ export default function Work() {
                   call={`${start}\n${cutter(job.company)}`}
                   stamp={job.current ? <Stamp current>Checked out</Stamp> : <Stamp>Returned {end}</Stamp>}
                 >
-                  <h3 className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[56px] tracking-[-0.025em]">
+                  <h3 className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.025em]">
                     {job.company}
                   </h3>
-                  <p className="text-[17px] font-medium leading-7">
+                  <p className="mt-2 text-[17px] font-medium leading-7">
                     {job.role} <span className="font-normal text-ink-2">· {job.location}</span>
                   </p>
                   <p className="typed text-ink-2">{job.period}</p>

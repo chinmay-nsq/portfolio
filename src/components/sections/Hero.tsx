@@ -40,20 +40,20 @@ export default function Hero() {
           <Card
             as="article"
             call={"005.1\nLAL"}
-            stamp={current && <Stamp current>Checked out · {current.company}</Stamp>}
+            stamp={current && <Stamp current>Checked out<span className="hidden sm:inline"> · {current.company}</span></Stamp>}
           >
-            <h1 className="font-display text-[clamp(2.6rem,7.2vw,5.4rem)] font-semibold leading-[56px] tracking-[-0.035em] sm:leading-[84px]">
+            <h1 className="font-display text-[clamp(2.6rem,7.2vw,5.4rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
               Lale, Chinmay Kalyan.
               <span className="sr-only"> Software engineer in {profile.city}, India.</span>
             </h1>
 
-            <p className="mt-7 max-w-[46ch] font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-medium leading-[28px] tracking-[-0.01em] sm:leading-[42px]">
+            <p className="mt-7 max-w-[46ch] font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-medium leading-[1.3] tracking-[-0.01em]">
               Things that ship : web apps, mobile apps and the plumbing in between / by Chinmay Lale.
             </p>
 
             <div className="typed mt-7 text-ink-2">
               <p>— {profile.city}, India : {profile.company}, 2025–</p>
-              <p>1 engineer : full stack ; works in light and dark mode.</p>
+              <p>1 engineer : full stack ; no assembly required.</p>
             </div>
 
             <p className="mt-7 max-w-[62ch] text-[17px] leading-7 text-ink-2">
@@ -62,7 +62,7 @@ export default function Hero() {
               <b className="font-semibold text-ink">99.9%</b> uptime.
             </p>
 
-            <p className="typed mt-7 text-ink-2">{tracings(subjects)} I. Title.</p>
+            <p className="typed mt-7 text-ink-2">{tracings(subjects)}</p>
 
             <div className="mt-7 flex flex-wrap gap-3">
               <a href={`mailto:${profile.email}`} className="btn btn-ink">
