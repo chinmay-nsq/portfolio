@@ -17,6 +17,6 @@ export const siteMeta = {
   description:
     "Full-stack software engineer in Pune, India, building GenieHire, an AI recruitment platform, at Nsquare Experts. React, Next.js, Node.js, React Native and AWS, plus an ESP32 and a badminton racket.",
   locale: "en_IN",
-  ogImage: { path: "/og.jpg", width: 1200, height: 630, alt: "Chinmay Lale, software engineer in Pune: breaks things on purpose, so they never break by accident." },
+  ogImage: { path: "/og.jpg", width: 1200, height: 630, alt: "Chinmay Lale, software engineer in Pune: Things work. Then I think, `what if` ? You know the rest." },
   themeColor: "#f4f4f5",
 } as const;
