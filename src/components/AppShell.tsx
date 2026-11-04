@@ -1,12 +1,3 @@
-import SmoothScroll from "./SmoothScroll";
-import Header from "./Header";
-
 export default function AppShell({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <SmoothScroll />
-      <Header />
-      <main>{children}</main>
-    </>
-  );
+  return <main className="pb-24 pt-20 sm:pt-28">{children}</main>;
 }

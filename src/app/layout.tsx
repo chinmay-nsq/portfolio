@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Funnel_Display, Funnel_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import AppShell from "@/components/AppShell";
 import JsonLd from "@/components/JsonLd";
 import { SITE_URL, absoluteUrl, siteMeta } from "@/lib/site";
 import "./globals.css";
 
-const display = Funnel_Display({
-  variable: "--font-funnel-display",
+const sans = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
-const sans = Funnel_Sans({
-  variable: "--font-funnel-sans",
+const mono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} antialiased`}
+      className={`${sans.variable} ${mono.variable} antialiased`}
     >
       <body>
         <JsonLd />

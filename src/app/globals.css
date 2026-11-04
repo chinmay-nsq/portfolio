@@ -1,24 +1,23 @@
 @import "tailwindcss";
 
-/* ───────────── Design tokens: a product launch page, and the product is me ───────────── */
+/* ───────────── Design tokens ───────────── */
 @theme static {
-  --color-paper: #ffffff;
-  --color-mist: #f5f5f7;
-  --color-ink: #1d1d1f;
-  --color-ink-2: #6e6e73;
-  --color-ink-3: #86868b;
-  --color-line: #d2d2d7;
-  --color-accent: #2b45f0;
-  --color-accent-ink: #1f34c4;
-  /* the launch gradient, used once on the tagline and on the app icons */
-  --color-g1: #2b45f0;
-  --color-g2: #8a3ffc;
-  --color-g3: #e8457c;
+  --color-paper: #fcfcfc;
+  --color-surface: #f3f3f2;
+  --color-ink: #171717;
+  --color-ink-2: #6b6b6b;
+  --color-ink-3: #a3a3a3;
+  --color-line: #e8e8e6;
+  /* the only colour on the page: the ESP32's LED */
+  --color-led: #22c55e;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
-  --font-display: var(--font-funnel-display), system-ui, sans-serif;
-  --font-sans: var(--font-funnel-sans), system-ui, sans-serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 :root {
@@ -28,22 +27,22 @@
 html {
   background: var(--color-paper);
   scrollbar-width: thin;
-  scrollbar-color: #c7c7cc var(--color-paper);
+  scrollbar-color: #d4d4d2 var(--color-paper);
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: clip;
 }
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
   text-wrap: balance;
 }
 p,
@@ -53,66 +52,47 @@ dd {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
-  color: var(--color-ink);
+  background: #171717;
+  color: #fcfcfc;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-ink);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* ───────────── Lenis (smooth scroll) base styles ───────────── */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: clip;
-}
-
 /* ───────────── Components ───────────── */
 @layer components {
-  .wrap {
-    @apply mx-auto w-full max-w-[1080px] px-5 sm:px-8;
+  .page {
+    @apply mx-auto w-full max-w-[680px] px-6;
   }
 
-  /* big centred section headline, launch-page style */
-  .headline {
-    @apply font-display text-[clamp(2.4rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em];
-  }
-  .lede {
-    @apply mx-auto max-w-[44ch] text-[clamp(1.1rem,1.8vw,1.35rem)] leading-relaxed text-ink-2;
+  /* links in running text: a quiet underline that firms up on hover */
+  .link {
+    @apply underline decoration-ink/25 decoration-1 underline-offset-[3px] transition-[text-decoration-color] duration-150 hover:decoration-ink;
   }
 
-  .launch-gradient {
-    background-image: linear-gradient(95deg, var(--color-g1), var(--color-g2) 50%, var(--color-g3));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  /* anything you can press gives a little under your finger */
+  .press {
+    transition: scale 160ms var(--ease-out);
   }
+  .press:active {
+    scale: 0.97;
+  }
+}
 
-  .btn {
-    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-[16px] font-medium transition-[color,background-color,border-color,scale] duration-200 ease-out active:scale-[0.96];
+/* First visit only: blocks settle in one after another. Set --i on each block. */
+@keyframes settle {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+    filter: blur(2px);
   }
-  .btn-accent {
-    @apply bg-accent text-white hover:bg-accent-ink;
-  }
-  .btn-link {
-    @apply inline-flex items-center gap-1 text-[16px] font-medium text-accent hover:underline hover:underline-offset-4;
-  }
-
-  /* footnote marker */
-  .fn {
-    @apply ml-[0.08em] align-super text-[0.5em] font-medium text-ink-2 no-underline hover:text-accent;
-  }
+}
+.settle {
+  animation: settle 600ms var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,7 +6,7 @@ export default function Highlight({ text }: { text: string }) {
     <>
       {text.split(NUM).map((part, i) =>
         i % 2 ? (
-          <b key={i} className="font-semibold text-ink">
+          <b key={i} className="font-medium text-ink">
             {part}
           </b>
         ) : (
