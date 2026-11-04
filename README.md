@@ -2,10 +2,9 @@
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · GSAP (+ ScrollTrigger) · Lenis
 
-The site is a library card catalogue with one person in it. Every job, project and win is an index card
-written in catalogue form (call number, imprint, notes, subject tracings, a date-due stamp), the sections
-are guide cards with staggered tabs, and the page closes on the drawer front. Light steel-gray ground,
-white ruled cards, one red ink saved for the job I'm on now.
+A clean, light, type-led portfolio: white page, big Funnel Display headlines, no boxes, and one cobalt
+accent for actions and the numbers that matter. Each section has its title on the left (sticky on desktop)
+and content on the right.
 
 ## Run
 
@@ -32,36 +31,34 @@ Hand-written asset URLs go through [`asset()`](src/lib/asset.ts) so they respect
 Everything lives in [`src/data/portfolio.ts`](src/data/portfolio.ts):
 
 - `profile` — contact links, `resume` (drop a PDF in `/public` to show a "Download my CV" button)
-- `experience` — one card each; `current: true` gets the red CHECKED OUT stamp, the rest are stamped RETURNED with their end date
-- `projects` (add `live` / `repo` URLs to show buttons), `skillGroups`, `achievements`, `education`, `stats`
+- `experience` — one expandable row each; `headline` is the line shown on the collapsed row, `current: true` adds the "Now" badge and opens it by default
+- `projects` (add `live` / `repo` URLs to show links), `skillGroups`, `achievements`, `education`
 
-Call numbers, stamps and tracings are derived in [`src/lib/catalogue.ts`](src/lib/catalogue.ts). The **subject index**
-(skills section) cross-references each skill to the jobs and projects whose `tags` mention it, so tagging a job with
-`Redis` automatically lists it next to Redis.
+In the **Toolbox** section a skill is shown in full ink when a job or project on the page lists it in its `tags`
+(matching lives in [`src/lib/content.ts`](src/lib/content.ts)), and lighter otherwise.
 
 ## How it's put together
 
 | Piece | File |
 | --- | --- |
-| Design tokens, the ruled card, buttons | [`src/app/globals.css`](src/app/globals.css) |
-| Index card / stamp / section guide card | `src/components/ui/Card.tsx`, `Stamp.tsx`, `GuideCard.tsx` |
-| Header tabs (active section is pulled up) | `src/components/Tabs.tsx` |
-| The rod running through every card | `src/components/AppShell.tsx` |
+| Design tokens, section layout, buttons | [`src/app/globals.css`](src/app/globals.css) |
+| Header (active section highlight) | `src/components/Header.tsx` |
+| Live "It's 9:42 pm in Pune…" line | `src/components/ui/LocalTime.tsx` |
 | Sections | `src/components/sections/*` |
 | Smooth scroll (Lenis driven by the GSAP ticker) | `src/components/SmoothScroll.tsx` |
 
-Motion is deliberately small: the title card slides out of the drawer and gets stamped, work cards stack on
-desktop as you scroll (the covered card sinks back), and each card's stamp lands as it arrives.
-`prefers-reduced-motion` turns all of it off.
+Motion is deliberately small: the hero headline rises in word by word, and the About statement lights up
+word by word as you scroll through it. Work rows expand and collapse. `prefers-reduced-motion` turns the
+animation off and shows everything at full ink.
 
-Fonts: Bricolage Grotesque (headings), Geist (text), Courier Prime (typed catalogue data only).
+Fonts: Funnel Display (headings) and Funnel Sans (text).
 
 ## SEO & sharing
 
 - **Metadata** — title, description, canonical URL, robots directives, Open Graph + Twitter cards ([`layout.tsx`](src/app/layout.tsx), copy in [`src/lib/site.ts`](src/lib/site.ts)).
-- **Share image** — [`public/og.jpg`](public/og.jpg), 1200×630, the title card.
+- **Share image** — [`public/og.jpg`](public/og.jpg), 1200×630, the hero headline.
 - **Structured data** — JSON-LD `Person` + `ProfilePage` + `WebSite` ([`JsonLd.tsx`](src/components/JsonLd.tsx)).
-- **`robots.txt`, `sitemap.xml`, `manifest.webmanifest`**, favicon, Apple touch icon and PWA icons (an index card).
+- **`robots.txt`, `sitemap.xml`, `manifest.webmanifest`**, favicon, Apple touch icon and PWA icons (CL monogram).
 - `/planet-jumping/` is an older experiment, kept as-is and marked `noindex`.
 
 The public URL comes from `NEXT_PUBLIC_SITE_URL`, which the deploy workflow sets automatically (`https://<user>.github.io/<repo>`).
@@ -79,4 +76,4 @@ The public URL comes from `NEXT_PUBLIC_SITE_URL`, which the deploy workflow sets
 
 A standalone, dependency-free experiment lives at **`/planet-jumping/`** (keep the trailing slash), served from
 [`public/planet-jumping/`](public/planet-jumping) and exposed in development through a rewrite in `next.config.ts`.
-It predates the catalogue redesign and isn't linked from the portfolio.
+It predates the current design and isn't linked from the portfolio.

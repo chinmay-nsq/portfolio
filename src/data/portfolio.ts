@@ -20,21 +20,12 @@ export const profile = {
   resume: "",
 };
 
-/** Each section is a guide card in the drawer; these are its tabs. */
 export const navLinks = [
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "projects", label: "Projects" },
-  { id: "index", label: "Skills" },
-  { id: "wins", label: "Wins" },
   { id: "contact", label: "Contact" },
 ] as const;
-
-export const stats = [
-  { value: 5000, suffix: "+", label: "People using my app every day" },
-  { value: 99.9, suffix: "%", label: "Uptime I kept on AWS", decimals: 1 },
-  { value: 25, suffix: "+", label: "REST APIs I've designed and shipped" },
-];
 
 export type Job = {
   company: string;
@@ -42,6 +33,8 @@ export type Job = {
   period: string;
   location: string;
   current?: boolean;
+  /** The one line that sells this job, shown on the collapsed row. */
+  headline: string;
   points: string[];
   tags: string[];
 };
@@ -53,6 +46,7 @@ export const experience: Job[] = [
     period: "2025 — Present",
     location: "India",
     current: true,
+    headline: "Building GenieHire",
     points: [
       "I'm on the product engineering team building GenieHire, an AI-powered recruitment platform.",
     ],
@@ -63,6 +57,7 @@ export const experience: Job[] = [
     role: "Software Engineer",
     period: "Feb 2025 — Sept 2025",
     location: "Pune, Maharashtra",
+    headline: "5,000+ daily users",
     points: [
       "I built and maintained the company's React Native app for iOS and Android. It grew to 5,000+ daily active users.",
       "On the backend I wrote 10+ APIs in Node.js (TypeScript) with DynamoDB and cut response times by 40ms, so the app loaded faster.",
@@ -76,6 +71,7 @@ export const experience: Job[] = [
     role: "Software Engineer Intern",
     period: "Aug 2024 — Feb 2025",
     location: "Pune, Maharashtra",
+    headline: "Pages under 200ms",
     points: [
       "I built a responsive web app from scratch with Vite, React and Tailwind CSS: 15+ reusable components, and pages that load in under 200ms on desktop and mobile.",
       "I worked on SEO too. Better meta tags, structured data and performance fixes lifted our organic ranking by 20% across 15+ target keywords.",
@@ -87,6 +83,7 @@ export const experience: Job[] = [
     role: "MERN Stack Intern",
     period: "Apr 2024 — Aug 2024",
     location: "Remote",
+    headline: "80% less manual work",
     points: [
       "I built an automatic invoice generator with React.js, Tailwind CSS, Node.js (TS) and MongoDB. It cut the manual work by 80%.",
       "Invoice lookups were slow, so I added Redis caching and brought the average response time down by 40%.",
@@ -164,7 +161,6 @@ export type Project = {
   /** Fill these in to show buttons on the card. */
   live?: string;
   repo?: string;
-  visual: "linkforge" | "slatx" | "springcart";
 };
 
 export const projects: Project[] = [
@@ -181,7 +177,6 @@ export const projects: Project[] = [
     tags: ["Next.js", "Express.js", "PostgreSQL"],
     live: "",
     repo: "",
-    visual: "linkforge",
   },
   {
     id: "slatx",
@@ -196,7 +191,6 @@ export const projects: Project[] = [
     tags: ["Next.js", "PostgreSQL", "Prisma"],
     live: "",
     repo: "",
-    visual: "slatx",
   },
   {
     id: "springcart",
@@ -211,7 +205,6 @@ export const projects: Project[] = [
     tags: ["Spring Boot", "Next.js", "PostgreSQL", "JWT"],
     live: "",
     repo: "https://github.com/ChinmayLale",
-    visual: "springcart",
   },
 ];
 

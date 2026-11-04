@@ -30,6 +30,7 @@ First person, written by Chinmay. Human and specific, sometimes playful or a lit
 
 - Simple, aesthetic, minimalist, professional.
 - The earlier space / fighter-jet theme is dropped (decision 2026-11-04). Do not reintroduce space or aviation motifs.
+- Light theme only. No card / page / catalogue metaphors (rejected 2026-11-04).
 - No intro loader: name and role must be visible immediately.
 - The page should pull visitors to keep scrolling to the end.
 

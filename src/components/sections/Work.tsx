@@ -1,97 +1,91 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { useId, useState } from "react";
 import { experience } from "@/data/portfolio";
-import { cutter, parsePeriod, tracings } from "@/lib/catalogue";
-import Card from "../ui/Card";
-import GuideCard from "../ui/GuideCard";
-import Stamp from "../ui/Stamp";
+import { years } from "@/lib/content";
 import Highlight from "../ui/Highlight";
 
-const STICKY_TOP = 76; // just under the header tabs
-const STICKY_STEP = 16; // each later card parks a little lower, so the edges of the stack show
-
 export default function Work() {
-  const root = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // each card's due-date stamp comes down as the card arrives
-        gsap.utils.toArray<HTMLElement>("[data-job]").forEach((job) => {
-          gsap.fromTo(
-            job.querySelector("[data-stamp]"),
-            { scale: 1.9, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.28, ease: "power4.in", scrollTrigger: { trigger: job, start: "top 70%", once: true } },
-          );
-        });
-      });
-      // desktop: a card that gets covered by the next one sinks back into the drawer
-      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-        const jobs = gsap.utils.toArray<HTMLElement>("[data-job]");
-        jobs.forEach((job, i) => {
-          const next = jobs[i + 1];
-          if (!next) return;
-          const range = { trigger: next, start: "top 85%", end: `top ${STICKY_TOP + (i + 1) * STICKY_STEP}px`, scrub: true };
-          gsap.to(job.querySelector("[data-job-card]"), { scale: 0.95, ease: "none", scrollTrigger: range });
-          gsap.to(job.querySelector("[data-job-dim]"), { opacity: 0.5, ease: "none", scrollTrigger: range });
-        });
-      });
-      return () => mm.revert();
-    },
-    { scope: root },
-  );
+  // the current job starts open; the rest open on click
+  const [open, setOpen] = useState<number[]>([0]);
+  const uid = useId();
+  const toggle = (i: number) => setOpen((o) => (o.includes(i) ? o.filter((x) => x !== i) : [...o, i]));
 
   return (
-    <section ref={root} id="work" className="shell scroll-mt-14 pt-24">
-      <GuideCard label="Work" title="Where I've been checked out." slot={1}>
-        Four cards, three companies, and a number on almost every line. I like being able to measure things.
-      </GuideCard>
+    <section id="work" className="shell scroll-mt-16 py-24 sm:py-32">
+      <div className="section">
+        <div className="section-aside">
+          <h2 className="section-title">Work</h2>
+          <p className="mt-4 max-w-[30ch] text-[16px] leading-relaxed text-ink-2">
+            Three companies so far, and a number on almost every line. I like being able to measure things.
+          </p>
+        </div>
 
-      <ol className="mt-6">
-        {experience.map((job, i) => {
-          const { start, end } = parsePeriod(job.period);
-          const last = i === experience.length - 1;
-          return (
-            <li
-              key={`${job.company}-${job.role}`}
-              data-job
-              className={`lg:sticky ${last ? "" : "pb-6 lg:pb-[14vh]"}`}
-              style={{ top: STICKY_TOP + i * STICKY_STEP }}
-            >
-              <div data-job-card className="relative origin-top">
-                <Card
-                  as="article"
-                  call={`${start}\n${cutter(job.company)}`}
-                  stamp={job.current ? <Stamp current>Checked out</Stamp> : <Stamp>Returned {end}</Stamp>}
+        <ol className="section-body border-b border-line">
+          {experience.map((job, i) => {
+            const isOpen = open.includes(i);
+            const panel = `${uid}-job-${i}`;
+            return (
+              <li key={`${job.company}-${job.role}`} className="border-t border-line first:border-t-0">
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={panel}
+                  onClick={() => toggle(i)}
+                  className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 py-6 text-left sm:grid-cols-[1fr_auto_9.5rem]"
                 >
-                  <h3 className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.025em]">
-                    {job.company}
-                  </h3>
-                  <p className="mt-2 text-[17px] font-medium leading-7">
-                    {job.role} <span className="font-normal text-ink-2">· {job.location}</span>
-                  </p>
-                  <p className="typed text-ink-2">{job.period}</p>
+                  <span>
+                    <span className="block font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-medium leading-tight tracking-[-0.02em] transition-colors group-hover:text-accent">
+                      {job.company}
+                    </span>
+                    <span className="mt-1 block text-[15px] text-ink-2">
+                      {job.role}
+                      {job.current && (
+                        <span className="ml-2 inline-flex translate-y-[-1px] items-center gap-1.5 rounded-full bg-accent/10 px-2 py-0.5 text-[12px] font-medium text-accent">
+                          Now
+                        </span>
+                      )}
+                    </span>
+                  </span>
+                  <span className="hidden text-[15px] font-medium text-accent sm:block">{job.headline}</span>
+                  <span className="flex items-center justify-end gap-4 text-[15px] tabular-nums text-ink-2">
+                    {years(job.period)}
+                    <span
+                      aria-hidden="true"
+                      className={`relative grid h-7 w-7 place-items-center rounded-full border border-line transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-hover:border-ink/30 ${isOpen ? "rotate-45" : ""}`}
+                    >
+                      <span className="absolute h-px w-3 bg-ink" />
+                      <span className="absolute h-3 w-px bg-ink" />
+                    </span>
+                  </span>
+                </button>
 
-                  <ul className="mt-7 max-w-[68ch] text-[16px] leading-7 text-ink-2">
-                    {job.points.map((p) => (
-                      <li key={p} className="relative pl-6">
-                        <span aria-hidden="true" className="absolute left-0 top-[14px] h-px w-3 bg-ink-3" />
-                        <Highlight text={p} />
-                      </li>
-                    ))}
-                  </ul>
-
-                  <p className="typed mt-7 text-ink-2">{tracings(job.tags)}</p>
-                </Card>
-                <div data-job-dim aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-md bg-ground opacity-0" />
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+                <div
+                  id={panel}
+                  className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.2,0,0,1)] ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                >
+                  <div className="overflow-hidden" inert={!isOpen}>
+                    <div className="pb-8">
+                      <p className="text-[14px] text-ink-3">
+                        {job.period} · {job.location}
+                      </p>
+                      <ul className="mt-4 max-w-[68ch] space-y-3 text-[16px] leading-relaxed text-ink-2">
+                        {job.points.map((p) => (
+                          <li key={p} className="relative pl-5">
+                            <span aria-hidden="true" className="absolute left-0 top-[0.7em] h-1 w-1 rounded-full bg-ink-3" />
+                            <Highlight text={p} />
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="mt-5 text-[14px] text-ink-3">{job.tags.join("  ·  ")}</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </section>
   );
 }

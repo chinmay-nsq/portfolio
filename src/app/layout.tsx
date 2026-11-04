@@ -1,23 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Courier_Prime, Geist } from "next/font/google";
+import { Funnel_Display, Funnel_Sans } from "next/font/google";
 import AppShell from "@/components/AppShell";
 import JsonLd from "@/components/JsonLd";
 import { SITE_URL, absoluteUrl, siteMeta } from "@/lib/site";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const display = Funnel_Display({
+  variable: "--font-funnel-display",
   subsets: ["latin"],
 });
 
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-});
-
-const courier = Courier_Prime({
-  variable: "--font-courier",
-  weight: ["400", "700"],
+const sans = Funnel_Sans({
+  variable: "--font-funnel-sans",
   subsets: ["latin"],
 });
 
@@ -89,7 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${geist.variable} ${courier.variable} antialiased`}
+      className={`${display.variable} ${sans.variable} antialiased`}
     >
       <body>
         <JsonLd />
