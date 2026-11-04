@@ -1,9 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import AppShell from "@/components/AppShell";
 import JsonLd from "@/components/JsonLd";
 import { SITE_URL, absoluteUrl, siteMeta } from "@/lib/site";
 import "./globals.css";
+
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+});
 
 const sans = Geist({
   variable: "--font-geist",
@@ -83,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${mono.variable} antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} antialiased`}
     >
       <body>
         <JsonLd />

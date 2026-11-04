@@ -1,16 +1,12 @@
 # Chinmay Lale — Portfolio
 
-Next.js (App Router) · TypeScript · Tailwind CSS v4 · GSAP (+ ScrollTrigger) · Lenis
+Next.js (App Router) · TypeScript · Tailwind CSS v4
 
-A clean, light portfolio with one idea: **the line**. A single blue pen stroke draws itself down the left
-margin as you scroll, ties a knot beside every job and project (the year appears in the margin when the pen
-gets there), and finishes by underlining the email address at the bottom. Everything else stays quiet:
-white page, Funnel Display headlines, one reading column.
-
-The line lives in [`src/components/Thread.tsx`](src/components/Thread.tsx). Any element can join it with a
-`data-thread` attribute: `start`, `sway` (pass by in the margin), `knot` (tie a loop; the element gets
-`data-reached` when the pen arrives, which reveals its `.margin-note`), or `underline` (leave the margin and
-underline it). The path is rebuilt from those anchors whenever the layout changes.
+A light bento-board portfolio: rounded tiles on soft grey, solid colours only (ink, blue, sun yellow), Bricolage
+Grotesque headlines and Geist text. The first screen is the board, and some tiles are toys: a live analog clock
+on Pune time, a terminal that "installs something" when tapped, an ESP32 whose LED you can switch on, and a
+shuttlecock with a rally counter. Below it are work (expandable rows), projects (with small drawings), the story
+so far (education and wins) and a contact block.
 
 ## Run
 
@@ -37,27 +33,25 @@ Hand-written asset URLs go through [`asset()`](src/lib/asset.ts) so they respect
 Everything lives in [`src/data/portfolio.ts`](src/data/portfolio.ts):
 
 - `profile` — contact links, `resume` (drop a PDF in `/public` to show a "Download my CV" button)
-- `experience` — one expandable row each; `headline` is the line shown on the collapsed row, `current: true` adds the "Now" badge and opens it by default
-- `projects` (add `live` / `repo` URLs to show links), `skillGroups`, `achievements`, `education`
-
-In the **Toolbox** section a skill is shown in full ink when a job or project on the page lists it in its `tags`
-(matching lives in [`src/lib/content.ts`](src/lib/content.ts)), and lighter otherwise.
+- `experience` — expandable rows under Work; `headline` is the pill shown on the collapsed row
+- `projects` (add `live` / `repo` URLs to show links); the drawings live in `Projects.tsx`
+- `education[].story` is how the story section tells each step; `achievements` are the coloured win tiles
+- `skillGroups` feeds the structured data; the "Daily drivers" chips are listed in `Bento.tsx`
 
 ## How it's put together
 
 | Piece | File |
 | --- | --- |
-| The line (scroll-drawn path, knots, margin notes) | `src/components/Thread.tsx` |
-| Design tokens, reading column, buttons | [`src/app/globals.css`](src/app/globals.css) |
-| Header (active section highlight) | `src/components/Header.tsx` |
-| Live "It's 9:42 pm in Pune…" line | `src/components/ui/LocalTime.tsx` |
+| Tokens, tiles, bento grid areas, reveal-on-scroll | [`src/app/globals.css`](src/app/globals.css) |
+| The hero board | `src/components/sections/Bento.tsx` |
+| Clock, terminal, ESP32 and shuttlecock | `src/components/ui/Toys.tsx` |
+| Tiles rising in as they scroll into view | `src/components/RevealObserver.tsx` |
 | Sections | `src/components/sections/*` |
-| Smooth scroll (Lenis driven by the GSAP ticker) | `src/components/SmoothScroll.tsx` |
 
-Motion is deliberately small: the hero headline rises in word by word, the line draws with scroll, and work
-rows expand and collapse. With `prefers-reduced-motion` the line is simply drawn in full and nothing animates.
+Motion is small: tiles rise in once as they come into view, rows expand, and the toys respond when tapped. It all
+uses CSS transitions and the Web Animations API (no animation library), and `prefers-reduced-motion` turns it off.
 
-Fonts: Funnel Display (headings) and Funnel Sans (text).
+Fonts: Bricolage Grotesque (headings), Geist (text) and Geist Mono (the terminal).
 
 ## SEO & sharing
 

@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
-/* ───────────── Design tokens ───────────── */
+/* ───────────── Design tokens: a bento board on soft grey, solid colours only ───────────── */
 @theme static {
-  --color-paper: #fcfcfc;
-  --color-surface: #f3f3f2;
-  --color-ink: #171717;
-  --color-ink-2: #6b6b6b;
-  --color-ink-3: #a3a3a3;
-  --color-line: #e8e8e6;
-  /* the only colour on the page: the ESP32's LED */
+  --color-page: #f4f4f5;
+  --color-tile: #ffffff;
+  --color-ink: #18181b;
+  --color-ink-2: #52525b;
+  --color-ink-3: #a1a1aa;
+  --color-line: #e4e4e7;
+  --color-blue: #2453e6;
+  --color-blue-ink: #1b40b8;
+  --color-sun: #fcd34d;
   --color-led: #22c55e;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -16,6 +18,7 @@
 }
 
 @theme inline {
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
@@ -25,17 +28,18 @@
 }
 
 html {
-  background: var(--color-paper);
+  scroll-padding-top: 80px;
+  background: var(--color-page);
   scrollbar-width: thin;
-  scrollbar-color: #d4d4d2 var(--color-paper);
+  scrollbar-color: #d4d4d8 var(--color-page);
 }
 
 body {
-  background: var(--color-paper);
+  background: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,47 +56,116 @@ dd {
 }
 
 ::selection {
-  background: #171717;
-  color: #fcfcfc;
+  background: var(--color-sun);
+  color: var(--color-ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-blue);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 /* ───────────── Components ───────────── */
 @layer components {
-  .page {
-    @apply mx-auto w-full max-w-[680px] px-6;
+  .shell {
+    @apply mx-auto w-full max-w-[1120px] px-4 sm:px-6;
   }
 
-  /* links in running text: a quiet underline that firms up on hover */
+  .tile {
+    @apply relative overflow-hidden rounded-[28px] bg-tile p-6;
+    box-shadow:
+      0 1px 2px rgba(24, 24, 27, 0.04),
+      0 0 0 1px rgba(24, 24, 27, 0.04);
+  }
+  .tile-label {
+    @apply text-[13px] font-medium text-ink-2;
+  }
+  .tile-big {
+    @apply font-display font-semibold leading-none tracking-[-0.03em];
+  }
+
+  .chip {
+    @apply inline-flex h-8 items-center rounded-full bg-page px-3 text-[14px];
+  }
+
+  .btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-[15px] font-medium transition-[background-color,color,scale] duration-150 ease-out active:scale-[0.97];
+  }
+  .btn-ink {
+    @apply bg-ink text-white hover:bg-[#2a2a2e];
+  }
+  .btn-soft {
+    @apply bg-page text-ink hover:bg-line;
+  }
+
   .link {
-    @apply underline decoration-ink/25 decoration-1 underline-offset-[3px] transition-[text-decoration-color] duration-150 hover:decoration-ink;
+    @apply underline decoration-current/30 decoration-1 underline-offset-[3px] transition-[text-decoration-color] duration-150 hover:decoration-current;
   }
 
-  /* anything you can press gives a little under your finger */
+  /* pressable tiles and toys */
   .press {
     transition: scale 160ms var(--ease-out);
   }
   .press:active {
     scale: 0.97;
   }
-}
 
-/* First visit only: blocks settle in one after another. Set --i on each block. */
-@keyframes settle {
-  from {
-    opacity: 0;
-    translate: 0 8px;
-    filter: blur(2px);
+  /* the hero board: named areas so every tile has a home at each size */
+  .bento {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(180px, auto);
+    grid-template-areas:
+      "intro intro"
+      "clock now"
+      "uptime esp"
+      "term term"
+      "shuttle invoice"
+      "stack stack"
+      "edu social";
+  }
+  @media (min-width: 1024px) {
+    .bento {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 210px;
+      grid-template-areas:
+        "intro intro clock now"
+        "intro intro uptime esp"
+        "term term shuttle invoice"
+        "stack stack edu social";
+    }
+  }
+
+  .section-title {
+    @apply font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-none tracking-[-0.035em];
   }
 }
-.settle {
-  animation: settle 600ms var(--ease-out) backwards;
-  animation-delay: calc(var(--i, 0) * 70ms);
+
+/*
+ * Tiles rise in as they come into view (RevealObserver sets data-in).
+ * Only when scripting is on and motion is welcome, so content is never hidden otherwise.
+ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 600ms var(--ease-out),
+      translate 600ms var(--ease-out),
+      scale 600ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 50ms);
+  }
+  [data-reveal]:not([data-in]) {
+    opacity: 0;
+    translate: 0 16px;
+    scale: 0.98;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
