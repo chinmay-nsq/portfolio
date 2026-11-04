@@ -17,6 +17,6 @@ export const siteMeta = {
   description:
     "I'm a software engineer in India, building GenieHire, an AI recruitment platform, at Nsquare Experts. I work across the stack with React, Next.js, Node.js, React Native and AWS.",
   locale: "en_IN",
-  ogImage: { path: "/og.jpg", width: 1200, height: 630, alt: "Chinmay Lale — Software Engineer. Portrait of Earth behind the name." },
-  themeColor: "#06070a",
+  ogImage: { path: "/og.jpg", width: 1200, height: 630, alt: "Chinmay Lale, software engineer, written up as a library catalogue card." },
+  themeColor: "#e2e5e9",
 } as const;

@@ -1,161 +1,68 @@
-"use client";
-
-import { useRef } from "react";
-import Image from "next/image";
-import { profile, stats } from "@/data/portfolio";
-import { JetMark } from "../Jet";
-import SectionHeading from "../ui/SectionHeading";
-import Panel from "../ui/Panel";
+import { education, profile, stats } from "@/data/portfolio";
+import Card from "../ui/Card";
+import GuideCard from "../ui/GuideCard";
 import Counter from "../ui/Counter";
-import DepthWord from "../ui/DepthWord";
-import { useReveal } from "../ui/useReveal";
-import { asset } from "@/lib/asset";
 
-const dossier = [
+const holdings = [
   ["Name", profile.name],
-  ["Role", profile.role],
-  ["Company", profile.company],
-  ["Location", profile.location],
-  ["Education", "B.Tech, Computer Science"],
-  ["Focus", "GenieHire · AI recruitment"],
-];
-
-/** Line icon: a planet with its orbit. */
-function OrbitIcon() {
-  return (
-    <svg viewBox="0 0 64 64" className="h-12 w-12 text-ink" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
-      <circle cx="32" cy="32" r="10" />
-      <ellipse cx="32" cy="32" rx="26" ry="9" transform="rotate(-22 32 32)" strokeOpacity=".6" />
-      <circle cx="53" cy="22" r="1.8" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-const passions = [
-  {
-    title: "Looking up",
-    kicker: "Astronomy & space",
-    text: "Planets, nebulae, deep-sky photographs. The universe is the biggest system there is, and I never get tired of learning how it works.",
-    visual: <OrbitIcon />,
-  },
-  {
-    title: "Speed with precision",
-    kicker: "Fighter jets & aerospace",
-    text: "I love afterburners, airshows and the engineering that keeps a jet together under extreme load. I try to write production code the same way: fast, but never careless.",
-    visual: (
-      <div className="w-6 rotate-[24deg] text-ink">
-        <JetMark flame={false} />
-      </div>
-    ),
-  },
+  ["Shelved in", `${profile.city}, ${profile.location}`],
+  ["On loan to", profile.company],
+  ["Studied", `${education[0].degree}, ${education[0].period.match(/\d{4}$/)?.[0]}`],
+  ["Fluent in", "TypeScript, JavaScript, Python, Java"],
 ];
 
 export default function About() {
-  const root = useRef<HTMLElement>(null);
-  useReveal(root);
-
   return (
-    <section id="about" ref={root} className="relative py-28 sm:py-36">
-      <div className="container-x">
-        <SectionHeading title="Engineer on the ground," muted="dreamer in orbit." />
+    <section id="about" className="shell scroll-mt-14 pt-6">
+      <GuideCard label="About" title="Notes from the author." slot={0}>
+        The short version, before you pull the long cards.
+      </GuideCard>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-20">
-          {/* Profile card */}
-          <div data-reveal className="lg:col-span-5">
-            <Panel className="p-6 sm:p-7">
-              <div className="relative aspect-[5/4] overflow-hidden rounded-[3px] border border-white/10 bg-black/30">
-                {profile.photo ? (
-                  <Image src={asset(profile.photo)} alt={profile.name} fill sizes="(min-width:1024px) 40vw, 90vw" className="object-cover" />
-                ) : (
-                  <>
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px)",
-                        backgroundSize: "28px 28px",
-                      }}
-                    />
-                    <svg viewBox="-100 -100 200 200" className="absolute inset-0 m-auto h-[86%]" fill="none" stroke="rgba(255,255,255,.14)">
-                      <circle r="90" strokeDasharray="1.5 5" />
-                      <circle r="62" />
-                      <path d="M-100 0H-72M72 0H100M0 -100V-72M0 72V100" />
-                    </svg>
-                    <span className="absolute inset-0 grid place-items-center font-display text-[clamp(4.5rem,11vw,7rem)] font-semibold leading-none tracking-tighter text-white/90">
-                      CL
-                    </span>
-                  </>
-                )}
-                <span
-                  className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-transparent via-white/[0.06] to-transparent"
-                  style={{ animation: "scan 5s linear infinite" }}
-                />
-              </div>
+      <Card as="article" call={"NOTES\np. 2"} className="mt-6">
+        <div className="max-w-[64ch] space-y-7 text-[17px] leading-7 text-ink-2">
+          <p className="font-display text-[clamp(1.35rem,2.4vw,1.6rem)] font-medium leading-7 tracking-[-0.01em] text-ink sm:leading-[42px]">
+            Most of my work lives in the part of an app nobody screenshots.
+          </p>
+          <p>
+            The API that got <b className="font-semibold text-ink">40ms</b> faster. The Redis cache that made invoice
+            lookups <b className="font-semibold text-ink">40%</b> quicker. The EC2 deploy that held{" "}
+            <b className="font-semibold text-ink">99.9%</b> uptime while thousands of people tapped around on top of it.
+            I like that part. A fast app is good manners, and somebody has to write the manners.
+          </p>
+          <p>
+            These days I&apos;m at {profile.company}, building GenieHire, an AI recruitment platform. Before that I
+            shipped a React Native app at Social Continent, built web apps from scratch, and wrote an invoice generator
+            that cut <b className="font-semibold text-ink">80%</b> of somebody&apos;s manual work.
+          </p>
+          <p>
+            Off the clock I&apos;m reading about planets and fighter jets, or quietly adding to a LeetCode count
+            that&apos;s past <b className="font-semibold text-ink">450</b>.
+          </p>
+        </div>
 
-              <dl className="mt-5 divide-y divide-white/[0.07] text-sm">
-                {dossier.map(([k, v]) => (
-                  <div key={k} className="flex justify-between gap-6 py-2.5">
-                    <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-faint">{k}</dt>
-                    <dd className="text-right text-ink/90">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Panel>
-          </div>
-
-          {/* Story */}
-          <div className="lg:col-span-7">
-            <p data-reveal className="font-display text-2xl leading-[1.4] text-ink sm:text-[1.7rem]">
-              I&apos;m a full-stack engineer, and I like the hard problems more than the easy ones.
-              In the last couple of years I&apos;ve shipped a React Native app that{" "}
-              <span className="text-white">5,000+ people use every day</span>, designed APIs in
-              Node.js and Spring Boot, and kept production at{" "}
-              <span className="text-white">99.9% uptime</span> on AWS.
-            </p>
-            <p data-reveal className="mt-6 max-w-2xl text-base leading-relaxed text-dim sm:text-lg">
-              These days I&apos;m a Software Engineer at {profile.company}, working on GenieHire, an
-              AI recruitment platform. What I care about most is the stuff that makes software feel
-              fast: sensible data models, short feedback loops, and interfaces that respond the
-              moment you touch them.
-            </p>
-
-            <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3">
-              {stats.map((s, i) => (
-                <div key={s.label} data-reveal data-reveal-delay={i * 0.07} className="border-t border-white/15 pt-4">
-                  <div className="font-display text-4xl font-medium tracking-tight text-white tabular-nums sm:text-[2.6rem]">
-                    <Counter value={s.value} suffix={s.suffix} decimals={s.decimals} />
-                  </div>
-                  <div className="mt-2 text-[13px] leading-snug text-dim">{s.label}</div>
-                </div>
-              ))}
+        <dl className="mt-14 grid gap-x-8 border-y border-ink/10 sm:grid-cols-3">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="flex flex-col-reverse border-ink/10 py-5 [&:not(:first-child)]:border-t sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:border-t-0 sm:[&:not(:first-child)]:pl-8"
+            >
+              <dt className="mt-3 text-[15px] leading-6 text-ink-2">{s.label}</dt>
+              <dd className="font-display text-[clamp(2.4rem,4.4vw,3.25rem)] font-semibold leading-none tracking-[-0.03em] tabular-nums">
+                <Counter value={s.value} suffix={s.suffix} decimals={s.decimals} />
+              </dd>
             </div>
-          </div>
-        </div>
+          ))}
+        </dl>
 
-        {/* Beyond the code */}
-        <div className="mt-28">
-          <h3 data-reveal className="font-display text-3xl font-medium leading-tight tracking-[-0.022em] text-white sm:text-4xl">
-            When I&apos;m not coding
-          </h3>
-          <DepthWord word="Beyond" className="mt-10" maxSize={300} />
-          <div className="grid gap-5 md:grid-cols-2">
-            {passions.map((p, i) => (
-              <div key={p.title} data-reveal data-reveal-delay={i * 0.08}>
-                <Panel className="depth-card flex h-full items-start gap-6 p-6 sm:p-8">
-                  <div className="grid h-14 w-14 shrink-0 place-items-center rounded-md border border-white/10 bg-white/[0.02]">
-                    {p.visual}
-                  </div>
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">{p.kicker}</p>
-                    <h3 className="mt-2 font-display text-2xl font-medium tracking-tight text-white">{p.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-dim">{p.text}</p>
-                  </div>
-                </Panel>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        <dl className="typed mt-14 grid grid-cols-[auto_1fr] gap-x-8 text-ink-2">
+          {holdings.map(([k, v]) => (
+            <div key={k} className="contents">
+              <dt className="uppercase">{k}</dt>
+              <dd className="text-ink">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </Card>
     </section>
   );
 }

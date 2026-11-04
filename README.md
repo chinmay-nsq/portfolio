@@ -1,9 +1,11 @@
 # Chinmay Lale — Portfolio
 
-Next.js (App Router) · TypeScript · Tailwind CSS v4 · GSAP (+ ScrollTrigger, SplitText) · Lenis
+Next.js (App Router) · TypeScript · Tailwind CSS v4 · GSAP (+ ScrollTrigger) · Lenis
 
-A space / fighter-jet themed portfolio, kept deliberately restrained: near-black palette, hairline
-panels, a technical-drawing jet schematic and quiet flight-telemetry details.
+The site is a library card catalogue with one person in it. Every job, project and win is an index card
+written in catalogue form (call number, imprint, notes, subject tracings, a date-due stamp), the sections
+are guide cards with staggered tabs, and the page closes on the drawer front. Light steel-gray ground,
+white ruled cards, one red ink saved for the job I'm on now.
 
 ## Run
 
@@ -23,26 +25,44 @@ The site is a fully static export, deployed by [`.github/workflows/deploy.yml`](
 3. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions** (one time).
 4. Watch **Actions → Deploy to GitHub Pages**; the live URL appears on the finished run and under Settings → Pages.
 
-The standalone experience lives at `<site>/planet-jumping/` (keep the trailing slash). Hand-written asset URLs go through
-[`asset()`](src/lib/asset.ts) so they respect the base path.
+Hand-written asset URLs go through [`asset()`](src/lib/asset.ts) so they respect the base path.
 
 ## Edit your content
 
 Everything lives in [`src/data/portfolio.ts`](src/data/portfolio.ts):
 
-- `profile` — contact links, `resume` (drop a PDF in `/public`), `photo` (drop an image in `/public`)
-- `experience`, `projects` (add `live` / `repo` URLs to show buttons), `skillGroups`, `achievements`, `education`
-- `currentMission` — the GenieHire section (add an `href` to show a link)
+- `profile` — contact links, `resume` (drop a PDF in `/public` to show a "Download my CV" button)
+- `experience` — one card each; `current: true` gets the red CHECKED OUT stamp, the rest are stamped RETURNED with their end date
+- `projects` (add `live` / `repo` URLs to show buttons), `skillGroups`, `achievements`, `education`, `stats`
+
+Call numbers, stamps and tracings are derived in [`src/lib/catalogue.ts`](src/lib/catalogue.ts). The **subject index**
+(skills section) cross-references each skill to the jobs and projects whose `tags` mention it, so tagging a job with
+`Redis` automatically lists it next to Redis.
+
+## How it's put together
+
+| Piece | File |
+| --- | --- |
+| Design tokens, the ruled card, buttons | [`src/app/globals.css`](src/app/globals.css) |
+| Index card / stamp / section guide card | `src/components/ui/Card.tsx`, `Stamp.tsx`, `GuideCard.tsx` |
+| Header tabs (active section is pulled up) | `src/components/Tabs.tsx` |
+| The rod running through every card | `src/components/AppShell.tsx` |
+| Sections | `src/components/sections/*` |
+| Smooth scroll (Lenis driven by the GSAP ticker) | `src/components/SmoothScroll.tsx` |
+
+Motion is deliberately small: the title card slides out of the drawer and gets stamped, work cards stack on
+desktop as you scroll (the covered card sinks back), and each card's stamp lands as it arrives.
+`prefers-reduced-motion` turns all of it off.
+
+Fonts: Bricolage Grotesque (headings), Geist (text), Courier Prime (typed catalogue data only).
 
 ## SEO & sharing
 
-Built into the static export (verified with Lighthouse: SEO 100, Accessibility 100, Best Practices 100):
-
 - **Metadata** — title, description, canonical URL, robots directives, Open Graph + Twitter cards ([`layout.tsx`](src/app/layout.tsx), copy in [`src/lib/site.ts`](src/lib/site.ts)).
-- **Share image** — [`public/og.jpg`](public/og.jpg), 1200×630, echoing the hero (name tucked behind the Earth).
+- **Share image** — [`public/og.jpg`](public/og.jpg), 1200×630, the title card.
 - **Structured data** — JSON-LD `Person` + `ProfilePage` + `WebSite` ([`JsonLd.tsx`](src/components/JsonLd.tsx)).
-- **`robots.txt`, `sitemap.xml`, `manifest.webmanifest`**, favicon, Apple touch icon and PWA icons.
-- `/planet-jumping/` is an experiment and is marked `noindex`; the 404 page is too.
+- **`robots.txt`, `sitemap.xml`, `manifest.webmanifest`**, favicon, Apple touch icon and PWA icons (an index card).
+- `/planet-jumping/` is an older experiment, kept as-is and marked `noindex`.
 
 The public URL comes from `NEXT_PUBLIC_SITE_URL`, which the deploy workflow sets automatically (`https://<user>.github.io/<repo>`).
 
@@ -53,64 +73,10 @@ The public URL comes from `NEXT_PUBLIC_SITE_URL`, which the deploy workflow sets
 3. *Sitemaps* → submit `sitemap.xml`. Then *URL inspection* → *Request indexing* for the home page.
 4. Check the link preview in the [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) and the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (they cache aggressively — use their *Scrape again* button after changing the image).
 
-**For the strongest personal-brand SEO**, serve the site from its own root: either a repo named `<username>.github.io`, or a custom domain (e.g. `chinmaylale.dev`). Add a repository **variable** `CUSTOM_DOMAIN` with that domain, set it under *Settings → Pages → Custom domain*, and re-run the workflow — canonical URLs, sitemap and share tags all switch over automatically. (Search engines only honour `robots.txt` at the *root* of a host, so a `/<repo>/` project site can't control it.)
-
-## Hero depth effect
-
-Three backdrops share one idea. **Earth is the default**; open `/?hero=nebula` or `/?hero=moon` to compare the others. The Earth and Moon heroes put a photographic planet disc in front of the name so the last letter tucks behind its limb (with a soft cast shadow). The Earth is a real DSCOVR EPIC photo centred on India. The nebula version works differently: The nebula hero draws
-the same Hubble image twice — a full back layer and a front layer that is visible only where the gas is dense
-(`nebula-mask.png`, stars removed) — with the name sandwiched between them, so thick clouds drift in front of parts of
-the lettering. Both layers get identical parallax so they always line up.
-
-Moon version: the giant name sits on a layer **behind** a photoreal Moon, so its last
-letter tucks behind the disc (with the Moon casting a soft shadow on the lettering), and the small copy sits
-in front of both. Each layer drifts at its own speed on pointer movement and scroll. The Moon is a 3240 px
-NASA render, cropped to a circle and shipped at two sizes in [`public/hero/`](public/hero) (see
-[`CREDITS.md`](public/hero/CREDITS.md)). Layout and parallax live in
-[`Hero.tsx`](src/components/sections/Hero.tsx).
-
-## Projects
-
-On desktop the project cards park under the heading and each next card slides over the last (the covered
-one scales back and dims); on small screens they are a plain stacked list.
-
-## Deep-space backgrounds
-
-Looping NASA footage (public domain, from the Scientific Visualization Studio) sits behind the skills
-orbit and the contact section via [`SpaceVideo`](src/components/ui/SpaceVideo.tsx). Each clip in
-[`public/space/`](public/space) exists as a 1080p file (~5 MB) and a 4K file (~13 MB) plus a poster frame.
-The 4K file is only used on genuinely high-resolution screens; nothing is fetched until a section nears the
-viewport, playback pauses off-screen, and reduced-motion / data-saver visitors get the still poster.
-Sources and credits: [`public/space/CREDITS.md`](public/space/CREDITS.md).
-
-## Technology logos
-
-Logos live in [`public/logos/`](public/logos) as single-colour SVGs (brand marks from
-[Simple Icons](https://simpleicons.org); `sql.svg` is a generic database glyph) and are drawn with CSS
-masking by `src/components/ui/TechLogo.tsx`, so they match the surrounding text colour and take their
-brand colour on hover. To add one: drop `name.svg` in `public/logos/` and add a line to
-[`src/data/tech.ts`](src/data/tech.ts) keyed by the skill name used in `portfolio.ts`.
+**For the strongest personal-brand SEO**, serve the site from its own root: either a repo named `<username>.github.io`, or a custom domain (e.g. `chinmaylale.dev`). Add a repository **variable** `CUSTOM_DOMAIN` with that domain, set it under *Settings → Pages → Custom domain*, and re-run the workflow — canonical URLs, sitemap and share tags all switch over automatically.
 
 ## Planet Jumping (separate page)
 
-A standalone, dependency-free space-portal experience lives at **`/planet-jumping`**
-(source: [`public/planet-jumping.html`](public/planet-jumping.html), exposed through a rewrite in
-`next.config.ts`). It is a single self-contained HTML file — inline CSS/JS, no build step, no
-libraries — with a video preloader and a canvas-driven "portal" that tilts toward the pointer and
-expands to carry you from Mars → Earth → Venus. Its media is served locally from
-[`public/planet-jumping/`](public/planet-jumping) — the videos are 8-bit H.264 1080p (~11 MB total), which
-plays smoothly everywhere; the original 10-bit HEVC files were ~46 MB and often stuttered.
-
-## How it's put together
-
-| Piece | File |
-| --- | --- |
-| Loader (pre-flight HUD → takeoff → hyperspace → blast doors) | `src/components/Loader.tsx` |
-| Smooth scroll (Lenis driven by the GSAP ticker) | `src/components/SmoothScroll.tsx` |
-| Starfield canvas, nebula, flybys | `StarField.tsx`, `Nebula.tsx`, `Flyby.tsx` |
-| Altitude / Mach HUD (scrolling = ascent to orbit) | `src/components/HudTelemetry.tsx` |
-| Jet schematic + outline mark | `src/components/Jet.tsx` |
-| Sections | `src/components/sections/*` |
-
-`prefers-reduced-motion` is respected: the loader becomes a short fade, and the starfield, flybys,
-marquee and pinned scrolling are disabled or simplified.
+A standalone, dependency-free experiment lives at **`/planet-jumping/`** (keep the trailing slash), served from
+[`public/planet-jumping/`](public/planet-jumping) and exposed in development through a rewrite in `next.config.ts`.
+It predates the catalogue redesign and isn't linked from the portfolio.

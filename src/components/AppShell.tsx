@@ -1,36 +1,20 @@
-"use client";
-
-import { useCallback, useState } from "react";
-import { IntroContext } from "./IntroContext";
 import SmoothScroll from "./SmoothScroll";
-import Nebula from "./Nebula";
-import StarField from "./StarField";
-import Flyby from "./Flyby";
-import Loader from "./Loader";
-import Cursor from "./Cursor";
-import Navbar from "./Navbar";
-import HudTelemetry from "./HudTelemetry";
+import Tabs from "./Tabs";
 
-/**
- * Persistent layers (sky, cursor, HUD, loader) + the page content.
- * `revealed` flips to true the moment the loader's blast doors begin to open.
- */
+/** Header tabs + the drawer. The rod runs down the middle, behind every card, and ends at the drawer front. */
 export default function AppShell({ children }: { children: React.ReactNode }) {
-  const [revealed, setRevealed] = useState(false);
-  const reveal = useCallback(() => setRevealed(true), []);
-
   return (
-    <IntroContext.Provider value={revealed}>
-      <SmoothScroll locked={!revealed} />
-      <Nebula />
-      <StarField />
-      <Flyby />
-      <Navbar />
-      <HudTelemetry />
-      <main className="relative z-10">{children}</main>
-      <Loader onReveal={reveal} />
-      <Cursor />
-      <div className="grain" aria-hidden="true" />
-    </IntroContext.Provider>
+    <>
+      <SmoothScroll />
+      <Tabs />
+      <main className="relative">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-40 left-1/2 top-80 w-[3px] -translate-x-1/2 rounded-full"
+          style={{ background: "linear-gradient(90deg, #9aa3ae, #e8ebef 45%, #8d96a2)" }}
+        />
+        <div className="relative">{children}</div>
+      </main>
+    </>
   );
 }

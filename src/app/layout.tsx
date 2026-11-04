@@ -1,22 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Courier_Prime, Geist } from "next/font/google";
 import AppShell from "@/components/AppShell";
 import JsonLd from "@/components/JsonLd";
 import { SITE_URL, absoluteUrl, siteMeta } from "@/lib/site";
 import "./globals.css";
 
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const courier = Courier_Prime({
+  variable: "--font-courier",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -79,7 +80,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: siteMeta.themeColor,
-  colorScheme: "dark",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -88,13 +89,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${inter.variable} ${jetbrains.variable} antialiased`}
+      className={`${bricolage.variable} ${geist.variable} ${courier.variable} antialiased`}
     >
       <body>
-        {/* Without JS the loader would never part – hide it. */}
-        <noscript>
-          <style>{`.grain{display:none}[role="status"][aria-label="Loading portfolio"]{display:none!important}`}</style>
-        </noscript>
         <JsonLd />
         <AppShell>{children}</AppShell>
       </body>

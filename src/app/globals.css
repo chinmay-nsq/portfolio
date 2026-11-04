@@ -1,48 +1,51 @@
 @import "tailwindcss";
 
-/* ───────────── Design tokens ───────────── */
+/* ───────────── Design tokens: a library card catalogue ───────────── */
 @theme static {
-  --color-void: #06070a;
-  --color-deep: #0a0c11;
-  --color-panel: #0d0f15;
-  --color-ink: #ececf1;
-  --color-dim: #9296a4;
-  --color-faint: #5a5e6b;
-  /* steel blue – labels, links, quiet highlights */
-  --color-hud: #9db8d6;
-  /* signal orange – used sparingly (status, active, afterburner) */
-  --color-burner: #ff6a2b;
-  --color-mint: #6fcf97;
+  /* steel cabinet */
+  --color-ground: #e2e5e9;
+  --color-ground-deep: #d3d8de;
+  --color-steel: #262b32;
+  --color-steel-2: #353b44;
+  /* index card */
+  --color-card: #ffffff;
+  --color-rule-red: #d4472f;
+  --color-rule-blue: #bccbe0;
+  /* ink ramp: the only text tones */
+  --color-ink: #17191e;
+  --color-ink-2: #4f5561;
+  --color-ink-3: #6b7280;
+  /* red ink is reserved for one state: the job I'm on now */
+  --color-stamp: #c3311d;
+  --color-brass: #c4a46a;
+  --color-brass-dark: #8a6f3e;
 }
 
 @theme inline {
-  --font-display: var(--font-inter-tight), system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-typed: var(--font-courier), "Courier New", monospace;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+  /* the punched hole and the rod that runs through every card */
+  --rod-x: 50%;
 }
 
 html {
-  background: var(--color-void);
+  background: var(--color-ground);
   scrollbar-width: thin;
-  scrollbar-color: #232733 var(--color-void);
+  scrollbar-color: #aab2bd var(--color-ground);
 }
 
 body {
-  background: var(--color-void);
+  background: var(--color-ground);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
-}
-
-::selection {
-  background: rgba(157, 184, 214, 0.3);
-  color: #fff;
 }
 
 h1,
@@ -57,10 +60,20 @@ dd {
   text-wrap: pretty;
 }
 
+::selection {
+  background: rgba(212, 71, 47, 0.18);
+  color: var(--color-ink);
+}
+
 :focus-visible {
-  outline: 1.5px solid var(--color-hud);
+  outline: 2px solid var(--color-ink);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
 }
 
 /* ───────────── Lenis (smooth scroll) base styles ───────────── */
@@ -77,191 +90,95 @@ html.lenis body {
 .lenis.lenis-stopped {
   overflow: clip;
 }
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* Hide the native cursor only when the custom pointer is active */
-html.has-reticle,
-html.has-reticle a,
-html.has-reticle button,
-html.has-reticle [data-cursor] {
-  cursor: none;
-}
 
 /* ───────────── Components ───────────── */
 @layer components {
-  .container-x {
-    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  .shell {
+    @apply mx-auto w-full max-w-[1080px] px-4 sm:px-8;
   }
 
-  /* Section headline */
-  .h2 {
-    @apply font-display font-medium text-white;
-    font-size: clamp(2.1rem, 4.8vw, 3.9rem);
-    line-height: 1.08;
-    letter-spacing: -0.022em;
-    text-wrap: balance;
-  }
-
-  /* Flat, hairline panel */
-  .panel {
+  /*
+   * The index card. Red header rule at --rule-y, faint blue rules every 28px below it,
+   * and a punched hole at the bottom centre that the rod passes through.
+   */
+  .card {
+    --rule-y: 76px;
     position: relative;
-    background: rgba(255, 255, 255, 0.022);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--color-card);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 27px,
+      rgba(110, 150, 205, 0.17) 27px 28px
+    );
+    background-position: 0 var(--rule-y);
+    background-size: 100% calc(100% - var(--rule-y) - 44px);
+    background-repeat: no-repeat;
     border-radius: 6px;
-    transition:
-      border-color 0.3s ease,
-      background-color 0.3s ease;
+    box-shadow:
+      0 1px 2px rgba(23, 25, 30, 0.06),
+      0 18px 36px -22px rgba(23, 25, 30, 0.35);
+    padding: 0 clamp(20px, 4.5vw, 56px) 72px;
   }
-  .panel:hover {
-    border-color: rgba(255, 255, 255, 0.17);
-    background: rgba(255, 255, 255, 0.035);
-  }
-
-  /* A card that sits IN FRONT of a <DepthWord>: near-opaque frosted glass, so the letters behind it fade away */
-  .depth-card,
-  .depth-card:hover {
-    background: linear-gradient(180deg, rgba(15, 18, 27, 0.8), rgba(8, 10, 16, 0.86));
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    backdrop-filter: blur(16px) saturate(1.2);
-  }
-  .depth-card {
-    border-color: rgba(255, 255, 255, 0.11);
-    box-shadow: 0 -22px 50px -26px rgba(0, 0, 0, 0.85);
-  }
-  .depth-card:hover {
-    border-color: rgba(255, 255, 255, 0.22);
-  }
-
-  /* Faint cursor-following light on panels */
-  .spotlight::after {
+  .card::before {
     content: "";
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    background: radial-gradient(
-      420px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(255, 255, 255, 0.05),
-      transparent 45%
-    );
+    inset-inline: 0;
+    top: var(--rule-y);
+    height: 2px;
+    background: var(--color-rule-red);
+    opacity: 0.85;
   }
-  .spotlight:hover::after {
-    opacity: 1;
+  .card::after {
+    content: "";
+    position: absolute;
+    left: var(--rod-x);
+    bottom: 20px;
+    width: 18px;
+    height: 18px;
+    translate: -50% 0;
+    border-radius: 999px;
+    background: var(--color-ground);
+    box-shadow:
+      inset 0 2px 3px rgba(23, 25, 30, 0.28),
+      0 0 0 1px rgba(23, 25, 30, 0.05);
+  }
+  /* the band above the red rule: call number on the left, stamp on the right */
+  .card-head {
+    @apply flex items-start justify-between gap-4;
+    height: var(--rule-y);
+    padding-top: 18px;
+  }
+
+  /* typed catalogue data: call numbers, dates, tracings */
+  .typed {
+    font-family: var(--font-typed);
+    font-size: 14px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
   }
 
   .btn {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-5 font-sans text-sm font-medium transition-[color,background-color,border-color,scale] duration-200 ease-out active:scale-[0.96];
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-5 font-sans text-[15px] font-medium transition-[color,background-color,border-color,box-shadow,scale] duration-200 ease-out active:scale-[0.96];
   }
-  .btn-primary {
-    @apply bg-ink text-void hover:bg-white;
+  .btn-ink {
+    @apply bg-ink text-white shadow-[0_1px_0_rgba(255,255,255,.12)_inset,0_6px_16px_-8px_rgba(23,25,30,.6)] hover:bg-[#2c3038];
   }
-  .btn-ghost {
-    @apply border border-white/15 bg-transparent text-ink hover:border-white/35 hover:bg-white/5;
-  }
-
-  .text-muted-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(236, 236, 241, 0.2);
+  .btn-line {
+    @apply border border-ink/20 bg-white/60 text-ink hover:border-ink/45 hover:bg-white;
   }
 
-  .scanlines {
-    background-image: repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.03) 0,
-      rgba(255, 255, 255, 0.03) 1px,
-      transparent 1px,
-      transparent 3px
-    );
+  /* inline links inside prose */
+  .ink-link {
+    @apply underline decoration-ink/30 underline-offset-[0.2em] transition-colors hover:decoration-ink;
   }
-
-  .grain {
-    position: fixed;
-    inset: -50%;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    animation: grain 1.2s steps(6) infinite;
-  }
-}
-
-/* ───────────── Keyframes ───────────── */
-@keyframes grain {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-3%, 2%); }
-  40% { transform: translate(2%, -3%); }
-  60% { transform: translate(-2%, -1%); }
-  80% { transform: translate(3%, 3%); }
-  100% { transform: translate(0, 0); }
-}
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0.15; }
-}
-@keyframes sweep {
-  to { transform: rotate(360deg); }
-}
-@keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.7; }
-  100% { transform: scale(2.4); opacity: 0; }
-}
-@keyframes runway {
-  to { background-position: -48px 0; }
-}
-@keyframes scrollcue {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(300%); }
-}
-@keyframes scan {
-  0% { transform: translateY(-120%); }
-  100% { transform: translateY(520%); }
-}
-@keyframes flicker {
-  0% { opacity: 0.75; transform: scaleY(0.85); }
-  100% { opacity: 1; transform: scaleY(1.1); }
-}
-
-.blink { animation: blink 1.4s steps(1) infinite; }
-.blink-slow { animation: blink 2.4s steps(1) infinite; }
-
-.jet-flame {
-  transform-box: fill-box;
-  transform-origin: 50% 0;
-  animation: flicker 0.12s ease-in-out infinite alternate;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grain,
-  .blink,
-  .blink-slow,
-  .jet-flame {
-    animation: none;
-  }
-  /* Inline looping effects (scan line, pulse ring, radar sweep, runway, scroll cue) run once, instantly */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-}
-
-/* ───────────── Technology logos (masked SVGs from /public/logos) ───────────── */
-.tech-logo {
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  transition: background-color 0.3s ease;
-}
-.tech-group:hover .tech-logo,
-.tech-logo.is-lit {
-  background-color: var(--brand);
 }

@@ -10,8 +10,7 @@ export const profile = {
   role: "Software Engineer",
   company: "Nsquare Experts",
   location: "Maharashtra, India",
-  baseLabel: "Pune, IN",
-  baseCoords: "18.52°N 73.86°E",
+  city: "Pune",
   email: "chinmay29.lale@gmail.com",
   phone: "+91 76207 04050",
   phoneHref: "tel:+917620704050",
@@ -19,42 +18,23 @@ export const profile = {
   github: "https://github.com/ChinmayLale",
   /** Drop a PDF in /public and set e.g. "/Chinmay_Lale_CV.pdf" to show a Download CV button. */
   resume: "",
-  /** Drop a portrait in /public and set e.g. "/me.jpg" to replace the monogram on the pilot card. */
-  photo: "",
 };
 
+/** Each section is a guide card in the drawer; these are its tabs. */
 export const navLinks = [
   { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
+  { id: "work", label: "Work" },
   { id: "projects", label: "Projects" },
-  { id: "achievements", label: "Achievements" },
+  { id: "index", label: "Skills" },
+  { id: "wins", label: "Wins" },
   { id: "contact", label: "Contact" },
 ] as const;
-
-export const heroRoles = [
-  "scalable APIs",
-  "mobile apps for 5,000+ users",
-  "AI hiring tools",
-  "cloud-native backends",
-];
 
 export const stats = [
   { value: 5000, suffix: "+", label: "People using my app every day" },
   { value: 99.9, suffix: "%", label: "Uptime I kept on AWS", decimals: 1 },
   { value: 25, suffix: "+", label: "REST APIs I've designed and shipped" },
 ];
-
-export const currentMission = {
-  name: "GenieHire",
-  tagline: "AI Recruitment Platform",
-  company: "Nsquare Experts",
-  role: "Software Engineer",
-  description:
-    "I'm on the team at Nsquare Experts building GenieHire, an AI recruitment platform that matches candidates with the companies looking for them.",
-  /** Add a URL here to show a “Visit GenieHire” button. */
-  href: "",
-};
 
 export type Job = {
   company: string;

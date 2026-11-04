@@ -1,24 +1,20 @@
 import Hero from "@/components/sections/Hero";
-import Marquee from "@/components/ui/Marquee";
 import About from "@/components/sections/About";
-import Mission from "@/components/sections/Mission";
-import Experience from "@/components/sections/Experience";
-import Skills from "@/components/sections/Skills";
+import Work from "@/components/sections/Work";
 import Projects from "@/components/sections/Projects";
-import Achievements from "@/components/sections/Achievements";
+import Skills from "@/components/sections/Skills";
+import Wins from "@/components/sections/Wins";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
       <About />
-      <Mission />
-      <Experience />
-      <Skills />
+      <Work />
       <Projects />
-      <Achievements />
+      <Skills />
+      <Wins />
       <Contact />
     </>
   );
