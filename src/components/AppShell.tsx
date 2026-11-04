@@ -1,12 +1,16 @@
 import SmoothScroll from "./SmoothScroll";
 import Header from "./Header";
+import Thread from "./Thread";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SmoothScroll />
       <Header />
-      <main>{children}</main>
+      <main className="relative">
+        {children}
+        <Thread />
+      </main>
     </>
   );
 }

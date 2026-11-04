@@ -2,9 +2,15 @@
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · GSAP (+ ScrollTrigger) · Lenis
 
-A clean, light, type-led portfolio: white page, big Funnel Display headlines, no boxes, and one cobalt
-accent for actions and the numbers that matter. Each section has its title on the left (sticky on desktop)
-and content on the right.
+A clean, light portfolio with one idea: **the line**. A single blue pen stroke draws itself down the left
+margin as you scroll, ties a knot beside every job and project (the year appears in the margin when the pen
+gets there), and finishes by underlining the email address at the bottom. Everything else stays quiet:
+white page, Funnel Display headlines, one reading column.
+
+The line lives in [`src/components/Thread.tsx`](src/components/Thread.tsx). Any element can join it with a
+`data-thread` attribute: `start`, `sway` (pass by in the margin), `knot` (tie a loop; the element gets
+`data-reached` when the pen arrives, which reveals its `.margin-note`), or `underline` (leave the margin and
+underline it). The path is rebuilt from those anchors whenever the layout changes.
 
 ## Run
 
@@ -41,15 +47,15 @@ In the **Toolbox** section a skill is shown in full ink when a job or project on
 
 | Piece | File |
 | --- | --- |
-| Design tokens, section layout, buttons | [`src/app/globals.css`](src/app/globals.css) |
+| The line (scroll-drawn path, knots, margin notes) | `src/components/Thread.tsx` |
+| Design tokens, reading column, buttons | [`src/app/globals.css`](src/app/globals.css) |
 | Header (active section highlight) | `src/components/Header.tsx` |
 | Live "It's 9:42 pm in Pune…" line | `src/components/ui/LocalTime.tsx` |
 | Sections | `src/components/sections/*` |
 | Smooth scroll (Lenis driven by the GSAP ticker) | `src/components/SmoothScroll.tsx` |
 
-Motion is deliberately small: the hero headline rises in word by word, and the About statement lights up
-word by word as you scroll through it. Work rows expand and collapse. `prefers-reduced-motion` turns the
-animation off and shows everything at full ink.
+Motion is deliberately small: the hero headline rises in word by word, the line draws with scroll, and work
+rows expand and collapse. With `prefers-reduced-motion` the line is simply drawn in full and nothing animates.
 
 Fonts: Funnel Display (headings) and Funnel Sans (text).
 

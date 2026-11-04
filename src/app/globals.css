@@ -81,18 +81,22 @@ html.lenis body {
     @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-12;
   }
 
-  /* section layout: title on the left (sticky on desktop), content on the right */
-  .section {
-    @apply grid gap-x-12 gap-y-10 border-t border-line pt-10 lg:grid-cols-12 lg:pt-14;
-  }
-  .section-aside {
-    @apply lg:sticky lg:top-28 lg:col-span-4 lg:self-start;
+  /* the reading column; the left margin belongs to the line (see Thread.tsx) */
+  .col {
+    @apply mx-auto w-full max-w-[760px] pl-11 pr-5 sm:pr-8 lg:px-0;
   }
   .section-title {
-    @apply font-display text-[clamp(2rem,4vw,3rem)] font-medium leading-none tracking-[-0.03em];
+    @apply font-display text-[clamp(2.4rem,5vw,3.75rem)] font-medium leading-none tracking-[-0.035em];
   }
-  .section-body {
-    @apply lg:col-span-8;
+
+  /* a note in the margin, beside the line; it appears once the pen reaches its row */
+  .margin-note {
+    @apply pointer-events-none absolute right-[calc(100%+84px)] top-[18px] hidden whitespace-nowrap text-right text-[14px] tabular-nums text-ink-3 opacity-0 transition-[opacity,translate] duration-500 ease-out xl:block;
+    translate: 6px 0;
+  }
+  [data-reached] > .margin-note {
+    opacity: 1;
+    translate: 0 0;
   }
 
   .btn {

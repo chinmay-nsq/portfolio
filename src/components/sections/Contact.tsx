@@ -27,25 +27,25 @@ export default function Contact() {
 
   return (
     <section id="contact" className="scroll-mt-16 bg-mist">
-      <div className="shell pb-10 pt-24 sm:pt-32">
-        <h2 className="font-display text-[clamp(2.6rem,7vw,5.5rem)] font-medium leading-[0.98] tracking-[-0.04em]">
-          Got something to build?
-          <span className="block text-ink-3">Let&apos;s talk about it.</span>
+      <div className="col pb-10 pt-24 sm:pt-32">
+        <h2 data-thread="sway" className="font-display text-[clamp(2.6rem,6.4vw,4.75rem)] font-medium leading-[0.98] tracking-[-0.04em]">
+          You followed the line all the way down here.
+          <span className="block text-ink-3">Might as well say hi.</span>
         </h2>
-        <p className="mt-8 max-w-[46ch] text-[18px] leading-relaxed text-ink-2">
+        <p className="mt-8 max-w-[48ch] text-[18px] leading-relaxed text-ink-2">
           Hiring, starting a project, or just want to argue about tabs versus spaces. Email is the fastest way to reach
           me, and I&apos;ll get back to you.
         </p>
 
-        <div className="mt-14 flex flex-col gap-6 border-t border-ink/10 pt-10 md:flex-row md:items-end md:justify-between">
+        <div className="mt-14 flex flex-col gap-6 border-t border-ink/10 pt-10">
           <a
             href={`mailto:${profile.email}`}
             className="group inline-flex items-center gap-3 break-all font-display text-[clamp(1.5rem,4.4vw,3.25rem)] font-medium tracking-[-0.03em]"
           >
-            <span className="draw-link">{profile.email}</span>
+            <span data-thread="underline">{profile.email}</span>
             <Arrow dir="up-right" className="!h-[0.7em] !w-[0.7em] text-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
           </a>
-          <button type="button" onClick={copy} className="btn btn-line shrink-0 bg-paper">
+          <button type="button" onClick={copy} className="btn btn-line mt-4 w-fit shrink-0 bg-paper">
             <span className="relative grid h-4 w-4 place-items-center" aria-hidden="true">
               {/* both icons stay mounted and cross-fade */}
               <svg

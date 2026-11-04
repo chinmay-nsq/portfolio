@@ -12,27 +12,28 @@ export default function Work() {
   const toggle = (i: number) => setOpen((o) => (o.includes(i) ? o.filter((x) => x !== i) : [...o, i]));
 
   return (
-    <section id="work" className="shell scroll-mt-16 py-24 sm:py-32">
-      <div className="section">
-        <div className="section-aside">
-          <h2 className="section-title">Work</h2>
-          <p className="mt-4 max-w-[30ch] text-[16px] leading-relaxed text-ink-2">
-            Three companies so far, and a number on almost every line. I like being able to measure things.
-          </p>
-        </div>
+    <section id="work" className="scroll-mt-16 py-24 sm:py-32">
+      <div className="col">
+        <h2 data-thread="sway" className="section-title">
+          Work
+        </h2>
+        <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-ink-2">
+          Three companies so far, and a number on almost every line. I like being able to measure things.
+        </p>
 
-        <ol className="section-body border-b border-line">
+        <ol className="mt-10 border-b border-line">
           {experience.map((job, i) => {
             const isOpen = open.includes(i);
             const panel = `${uid}-job-${i}`;
             return (
-              <li key={`${job.company}-${job.role}`} className="border-t border-line first:border-t-0">
+              <li key={`${job.company}-${job.role}`} data-thread="knot" className="relative border-t border-line">
+                <span className="margin-note">{years(job.period)}</span>
                 <button
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={panel}
                   onClick={() => toggle(i)}
-                  className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 py-6 text-left sm:grid-cols-[1fr_auto_9.5rem]"
+                  className="group grid w-full grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 py-6 text-left sm:grid-cols-[1fr_auto_auto]"
                 >
                   <span>
                     <span className="block font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-medium leading-tight tracking-[-0.02em] transition-colors group-hover:text-accent">
@@ -41,7 +42,7 @@ export default function Work() {
                     <span className="mt-1 block text-[15px] text-ink-2">
                       {job.role}
                       {job.current && (
-                        <span className="ml-2 inline-flex translate-y-[-1px] items-center gap-1.5 rounded-full bg-accent/10 px-2 py-0.5 text-[12px] font-medium text-accent">
+                        <span className="ml-2 inline-flex translate-y-[-1px] items-center rounded-full bg-accent/10 px-2 py-0.5 text-[12px] font-medium text-accent">
                           Now
                         </span>
                       )}
@@ -49,7 +50,7 @@ export default function Work() {
                   </span>
                   <span className="hidden text-[15px] font-medium text-accent sm:block">{job.headline}</span>
                   <span className="flex items-center justify-end gap-4 text-[15px] tabular-nums text-ink-2">
-                    {years(job.period)}
+                    <span className="xl:hidden">{years(job.period)}</span>
                     <span
                       aria-hidden="true"
                       className={`relative grid h-7 w-7 place-items-center rounded-full border border-line transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-hover:border-ink/30 ${isOpen ? "rotate-45" : ""}`}
