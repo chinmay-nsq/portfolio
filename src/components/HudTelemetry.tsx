@@ -85,7 +85,7 @@ export default function HudTelemetry() {
     <>
       <div
         aria-hidden="true"
-        className={`pointer-events-none fixed bottom-6 left-6 z-40 hidden items-stretch gap-4 rounded-md border border-white/[0.08] bg-void/70 px-4 py-3 font-mono text-[10px] tracking-[0.14em] backdrop-blur-md transition-opacity duration-1000 xl:flex ${revealed ? "opacity-100" : "opacity-0"}`}
+        className={`pointer-events-none fixed bottom-6 left-6 z-40 hidden items-stretch gap-4 rounded-md border border-white/[0.08] bg-void/70 px-4 py-3 font-mono text-[10px] tracking-[0.14em] backdrop-blur-md transition-opacity duration-1000 min-[1600px]:flex ${revealed ? "opacity-100" : "opacity-0"}`}
       >
         {/* Altitude gauge */}
         <div className="relative w-2">
@@ -120,7 +120,7 @@ export default function HudTelemetry() {
       <div
         ref={toastRef}
         aria-live="polite"
-        className="pointer-events-none fixed left-1/2 top-20 z-40 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-void/85 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink opacity-0 backdrop-blur-md"
+        className="pointer-events-none fixed left-1/2 top-20 z-40 hidden -translate-x-1/2 whitespace-nowrap lg:block rounded-md border border-white/15 bg-void/85 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink opacity-0 backdrop-blur-md"
       />
     </>
   );

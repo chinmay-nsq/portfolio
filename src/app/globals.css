@@ -45,6 +45,18 @@ body {
   color: #fff;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
 :focus-visible {
   outline: 1.5px solid var(--color-hud);
   outline-offset: 3px;
@@ -81,18 +93,6 @@ html.has-reticle [data-cursor] {
 @layer components {
   .container-x {
     @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
-  }
-
-  /* Small technical label: "01 — About" */
-  .eyebrow {
-    @apply flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-dim;
-  }
-  .eyebrow::before {
-    content: "";
-    width: 24px;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.4;
   }
 
   /* Section headline */
@@ -154,7 +154,7 @@ html.has-reticle [data-cursor] {
   }
 
   .btn {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-5 font-sans text-sm font-medium transition-colors duration-300;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md px-5 font-sans text-sm font-medium transition-[color,background-color,border-color,scale] duration-200 ease-out active:scale-[0.96];
   }
   .btn-primary {
     @apply bg-ink text-void hover:bg-white;
@@ -240,6 +240,13 @@ html.has-reticle [data-cursor] {
   .blink-slow,
   .jet-flame {
     animation: none;
+  }
+  /* Inline looping effects (scan line, pulse ring, radar sweep, runway, scroll cue) run once, instantly */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

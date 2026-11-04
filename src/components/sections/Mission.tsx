@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap, useGSAP, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 import { currentMission as m } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
+import Arrow from "../ui/Arrow";
 import { useReveal } from "../ui/useReveal";
 
 const SIZE = 460;
@@ -153,7 +154,7 @@ export default function Mission() {
         <div className="panel relative overflow-hidden p-6 sm:p-10 lg:p-14">
           <div className="relative grid items-center gap-14 lg:grid-cols-2">
             <div>
-              <SectionHeading index="02" label="Current focus" title="Currently building" muted={`${m.name}.`} />
+              <SectionHeading title="Right now I'm building" muted={`${m.name}.`} />
               <p data-reveal className="mt-8 max-w-lg text-lg leading-relaxed text-dim">
                 {m.description}
               </p>
@@ -170,7 +171,7 @@ export default function Mission() {
               </dl>
               {m.href && (
                 <a data-reveal href={m.href} target="_blank" rel="noreferrer" className="btn btn-primary mt-10">
-                  Visit {m.name} <span aria-hidden>↗</span>
+                  Visit {m.name} <Arrow dir="up-right" />
                 </a>
               )}
             </div>

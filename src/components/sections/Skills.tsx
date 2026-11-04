@@ -177,7 +177,7 @@ export default function Skills() {
     <section id="skills" ref={root} className="relative py-28 sm:py-36">
       <SpaceVideo clip="nebula" opacity={0.34} fade="both" />
       <div className="container-x">
-        <SectionHeading index="04" label="Skills" title="The stack" muted="I work with." />
+        <SectionHeading title="The stack" muted="I work with." />
 
         <div className="mt-16">
           {/* Desktop: orbital diagram */}

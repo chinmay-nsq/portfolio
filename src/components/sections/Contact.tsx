@@ -7,6 +7,7 @@ import { profile } from "@/data/portfolio";
 import SectionHeading from "../ui/SectionHeading";
 import Magnetic from "../ui/Magnetic";
 import DepthWord from "../ui/DepthWord";
+import Arrow from "../ui/Arrow";
 import { EarthLimb } from "../Scenery";
 import SpaceVideo from "../ui/SpaceVideo";
 import { useReveal } from "../ui/useReveal";
@@ -58,11 +59,11 @@ export default function Contact() {
       </div>
 
       <div className="container-x relative z-10 flex flex-1 flex-col items-center text-center">
-        <SectionHeading index="07" label="Contact" title="Let's build something" muted="that flies." center />
+        <SectionHeading title="Let's build something" muted="that flies." center />
 
         <p data-reveal className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-ink/75">
-          Have a product, a platform, or just a good conversation about space and fighter jets in
-          mind? Send a message — I&apos;ll get back to you.
+          If you&apos;re hiring, working on a product, or just want to talk about space and fighter
+          jets, email me. I&apos;ll get back to you.
         </p>
 
         <div data-reveal className="mt-12 flex flex-col items-center gap-6">
@@ -75,8 +76,33 @@ export default function Contact() {
               <span className="absolute -bottom-1 left-0 h-px w-full origin-left bg-white/40 transition-transform duration-500 group-hover:scale-x-0 group-hover:origin-right" />
             </a>
           </Magnetic>
-          <button type="button" onClick={copy} className="btn btn-ghost" aria-live="polite">
-            {copied ? "Copied ✓" : "Copy email address"}
+          <button type="button" onClick={copy} className="btn btn-ghost min-w-[11.5rem]">
+            <span className="relative grid h-4 w-4 place-items-center" aria-hidden="true">
+              {/* both icons stay mounted and cross-fade */}
+              <svg
+                viewBox="0 0 16 16"
+                className={`absolute h-4 w-4 transition-[opacity,scale,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${copied ? "scale-25 opacity-0 blur-[4px]" : "scale-100 opacity-100 blur-0"}`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              >
+                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+                <path d="M10.5 3.5v-.5a1 1 0 00-1-1h-6a1 1 0 00-1 1v6a1 1 0 001 1h.5" strokeLinecap="round" />
+              </svg>
+              <svg
+                viewBox="0 0 16 16"
+                className={`absolute h-4 w-4 text-mint transition-[opacity,scale,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${copied ? "scale-100 opacity-100 blur-0" : "scale-25 opacity-0 blur-[4px]"}`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3.5 8.5l3 3 6-7" />
+              </svg>
+            </span>
+            <span aria-live="polite">{copied ? "Email copied" : "Copy my email"}</span>
           </button>
         </div>
 
@@ -95,8 +121,8 @@ export default function Contact() {
             >
               <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
                 {c.label}
-                <span className="text-dim transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true">
-                  ↗
+                <span className="text-dim transition-[translate,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white">
+                  <Arrow dir="up-right" className="!h-3.5 !w-3.5" />
                 </span>
               </div>
               <div className="mt-3 truncate text-[15px] text-white">{c.value}</div>
@@ -107,7 +133,7 @@ export default function Contact() {
 
         {profile.resume && (
           <a data-reveal href={profile.resume} target="_blank" rel="noreferrer" className="btn btn-primary mt-8">
-            Download CV <span aria-hidden>↓</span>
+            Download my CV <Arrow dir="down" />
           </a>
         )}
       </div>
@@ -117,12 +143,16 @@ export default function Contact() {
           © {new Date().getFullYear()} {profile.name}
         </span>
         <span className="text-center">
-          Built with Next.js &amp; GSAP
+          Designed and built by me with Next.js &amp; GSAP
           <br />
           <span className="text-faint">Space imagery: NASA · STScI · ESA · CSA</span>
         </span>
-        <button type="button" onClick={() => scrollTo(0, 3)} className="transition-colors hover:text-white">
-          Back to top ↑
+        <button
+          type="button"
+          onClick={() => scrollTo(0, 3)}
+          className="-my-3 inline-flex items-center gap-2 py-3 transition-colors hover:text-white"
+        >
+          Back to top <Arrow dir="up" />
         </button>
       </footer>
     </section>

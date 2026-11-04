@@ -49,17 +49,14 @@ export default function Achievements() {
   return (
     <section id="achievements" ref={root} className="relative py-28 sm:py-36">
       <div className="container-x">
-        <SectionHeading index="06" label="Recognition" title="Achievements" muted="& education." />
+        <SectionHeading title="A few things" muted="I'm proud of." />
 
         <DepthWord word="Milestones" className="mt-14" maxSize={300} />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {achievements.map((a, i) => (
             <div key={a.title} data-reveal data-reveal-delay={i * 0.07}>
               <Panel className="depth-card tech-group flex h-full flex-col p-6">
-                <div className="flex items-start justify-between">
-                  <Icon icon={a.icon} logo={a.logo} />
-                  <span className="font-mono text-[10px] tracking-[0.16em] text-faint">0{i + 1}</span>
-                </div>
+                <Icon icon={a.icon} logo={a.logo} />
                 <div className="mt-10 font-display text-5xl font-medium leading-none tracking-[-0.025em] text-white tabular-nums">
                   {a.count !== undefined ? <Counter value={a.count} suffix={a.suffix} /> : a.value}
                 </div>
@@ -73,9 +70,8 @@ export default function Achievements() {
         {/* Education */}
         <div className="mt-28 grid gap-10 lg:grid-cols-12 lg:gap-20">
           <div data-reveal className="lg:col-span-4">
-            <p className="eyebrow">Education</p>
-            <h3 className="mt-5 font-display text-3xl font-medium leading-tight tracking-[-0.022em] text-white sm:text-4xl">
-              Where the training <span className="text-faint">began.</span>
+            <h3 className="font-display text-3xl font-medium leading-tight tracking-[-0.022em] text-white sm:text-4xl">
+              Where I <span className="text-faint">studied.</span>
             </h3>
           </div>
           <ol className="space-y-4 lg:col-span-8">

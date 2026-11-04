@@ -35,13 +35,13 @@ const passions = [
   {
     title: "Looking up",
     kicker: "Astronomy & space",
-    text: "Planets, nebulae, deep-sky photographs — the universe is the largest system there is, and I never tire of studying it.",
+    text: "Planets, nebulae, deep-sky photographs. The universe is the biggest system there is, and I never get tired of learning how it works.",
     visual: <OrbitIcon />,
   },
   {
     title: "Speed with precision",
     kicker: "Fighter jets & aerospace",
-    text: "Afterburners, airshows, engineering under extreme load. The same mindset I bring to production code: fast, never careless.",
+    text: "I love afterburners, airshows and the engineering that keeps a jet together under extreme load. I try to write production code the same way: fast, but never careless.",
     visual: (
       <div className="w-6 rotate-[24deg] text-ink">
         <JetMark flame={false} />
@@ -57,20 +57,13 @@ export default function About() {
   return (
     <section id="about" ref={root} className="relative py-28 sm:py-36">
       <div className="container-x">
-        <SectionHeading index="01" label="About" title="Engineer on the ground," muted="dreamer in orbit." />
+        <SectionHeading title="Engineer on the ground," muted="dreamer in orbit." />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-20">
           {/* Profile card */}
           <div data-reveal className="lg:col-span-5">
             <Panel className="p-6 sm:p-7">
-              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em]">
-                <span className="text-dim">Profile</span>
-                <span className="flex items-center gap-2 text-dim">
-                  <span className="blink-slow h-1.5 w-1.5 rounded-full bg-mint" /> Active
-                </span>
-              </div>
-
-              <div className="relative mt-5 aspect-[5/4] overflow-hidden rounded-[3px] border border-white/10 bg-black/30">
+              <div className="relative aspect-[5/4] overflow-hidden rounded-[3px] border border-white/10 bg-black/30">
                 {profile.photo ? (
                   <Image src={asset(profile.photo)} alt={profile.name} fill sizes="(min-width:1024px) 40vw, 90vw" className="object-cover" />
                 ) : (
@@ -113,20 +106,20 @@ export default function About() {
           {/* Story */}
           <div className="lg:col-span-7">
             <p data-reveal className="font-display text-2xl leading-[1.4] text-ink sm:text-[1.7rem]">
-              I&apos;m a full-stack engineer who loves hard problems and clean systems. Over the last
-              couple of years I&apos;ve shipped a React Native app used by{" "}
-              <span className="text-white">5,000+ people every day</span>, designed APIs on Node.js
-              and Spring Boot, and kept production at <span className="text-white">99.9% uptime</span>{" "}
-              on AWS.
+              I&apos;m a full-stack engineer, and I like the hard problems more than the easy ones.
+              In the last couple of years I&apos;ve shipped a React Native app that{" "}
+              <span className="text-white">5,000+ people use every day</span>, designed APIs in
+              Node.js and Spring Boot, and kept production at{" "}
+              <span className="text-white">99.9% uptime</span> on AWS.
             </p>
             <p data-reveal className="mt-6 max-w-2xl text-base leading-relaxed text-dim sm:text-lg">
-              Today I&apos;m a Software Engineer at {profile.company}, building GenieHire — an AI
-              recruitment platform. I care about the details that make software feel fast: sensible
-              data models, tight feedback loops, and interfaces that respond the instant you touch
-              them.
+              These days I&apos;m a Software Engineer at {profile.company}, working on GenieHire, an
+              AI recruitment platform. What I care about most is the stuff that makes software feel
+              fast: sensible data models, short feedback loops, and interfaces that respond the
+              moment you touch them.
             </p>
 
-            <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+            <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3">
               {stats.map((s, i) => (
                 <div key={s.label} data-reveal data-reveal-delay={i * 0.07} className="border-t border-white/15 pt-4">
                   <div className="font-display text-4xl font-medium tracking-tight text-white tabular-nums sm:text-[2.6rem]">
@@ -141,10 +134,10 @@ export default function About() {
 
         {/* Beyond the code */}
         <div className="mt-28">
-          <p data-reveal className="eyebrow">
-            Beyond the code
-          </p>
-          <DepthWord word="Beyond" className="mt-6" maxSize={300} />
+          <h3 data-reveal className="font-display text-3xl font-medium leading-tight tracking-[-0.022em] text-white sm:text-4xl">
+            When I&apos;m not coding
+          </h3>
+          <DepthWord word="Beyond" className="mt-10" maxSize={300} />
           <div className="grid gap-5 md:grid-cols-2">
             {passions.map((p, i) => (
               <div key={p.title} data-reveal data-reveal-delay={i * 0.08}>

@@ -4,8 +4,6 @@ import { useRef } from "react";
 import { gsap, SplitText, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
 type Props = {
-  index: string;
-  label: string;
   title: string;
   /** Optional second line, rendered in a quieter tone. */
   muted?: string;
@@ -13,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-export default function SectionHeading({ index, label, title, muted, center = false, className = "" }: Props) {
+export default function SectionHeading({ title, muted, center = false, className = "" }: Props) {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -21,15 +19,6 @@ export default function SectionHeading({ index, label, title, muted, center = fa
       const el = root.current;
       if (!el || prefersReducedMotion()) return;
       const heading = el.querySelector("h2") as HTMLElement;
-      const eyebrow = el.querySelector("[data-eyebrow]") as HTMLElement;
-
-      gsap.from(eyebrow, {
-        y: 12,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
-      });
 
       SplitText.create(heading, {
         type: "lines",
@@ -50,11 +39,7 @@ export default function SectionHeading({ index, label, title, muted, center = fa
 
   return (
     <div ref={root} className={`${center ? "text-center" : ""} ${className}`}>
-      <p data-eyebrow className={`eyebrow ${center ? "justify-center" : ""}`}>
-        <span className="text-faint">{index}</span>
-        {label}
-      </p>
-      <h2 className="h2 mt-5">
+      <h2 className="h2">
         {title}
         {muted && (
           <>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { fx } from "@/lib/fx";
 import { JetMark } from "./Jet";
+import Arrow from "./ui/Arrow";
 
 const LOG = [
   { at: 4, label: "AVIONICS", status: "ONLINE" },
@@ -319,9 +320,9 @@ export default function Loader({ onReveal }: { onReveal: () => void }) {
             type="button"
             data-cursor
             onClick={() => skipRef.current()}
-            className="pointer-events-auto text-dim transition-colors hover:text-white"
+            className="pointer-events-auto -m-3 inline-flex items-center gap-2 p-3 text-dim transition-colors hover:text-white"
           >
-            Skip intro →
+            Skip intro <Arrow />
           </button>
         </div>
 

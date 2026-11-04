@@ -7,6 +7,7 @@ import SectionHeading from "../ui/SectionHeading";
 import Panel from "../ui/Panel";
 import TechLogo from "../ui/TechLogo";
 import DepthWord from "../ui/DepthWord";
+import Arrow from "../ui/Arrow";
 
 /* ───────────── Wireframe mockups (no screenshots needed) ───────────── */
 
@@ -124,9 +125,6 @@ function ProjectCard({ p }: { p: Project }) {
             backgroundSize: "28px 28px",
           }}
         />
-        <span className="absolute left-5 top-4 font-display text-5xl font-medium leading-none tracking-tight text-white/12">
-          {p.code.split("-")[1]}
-        </span>
         <div className="relative grid h-full w-full place-items-center py-6 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
           {visuals[p.visual]}
         </div>
@@ -134,10 +132,7 @@ function ProjectCard({ p }: { p: Project }) {
 
       {/* Copy */}
       <div className="flex flex-1 flex-col p-6 sm:p-8 lg:p-10">
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
-          <span>Project {p.code.split("-")[1]}</span>
-          <span>{p.period}</span>
-        </div>
+        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">{p.period}</p>
         <h3 className="mt-4 font-display text-4xl font-medium leading-none tracking-[-0.025em] text-white sm:text-5xl">
           {p.name}
         </h3>
@@ -163,13 +158,13 @@ function ProjectCard({ p }: { p: Project }) {
           </ul>
           <div className="flex gap-3">
             {p.live && (
-              <a href={p.live} target="_blank" rel="noreferrer" className="btn btn-primary !h-9">
-                Live <span aria-hidden>↗</span>
+              <a href={p.live} target="_blank" rel="noreferrer" className="btn btn-primary !h-10">
+                Live site <Arrow dir="up-right" />
               </a>
             )}
             {p.repo && (
-              <a href={p.repo} target="_blank" rel="noreferrer" className="btn btn-ghost !h-9">
-                Code <span aria-hidden>↗</span>
+              <a href={p.repo} target="_blank" rel="noreferrer" className="btn btn-ghost !h-10">
+                Source code <Arrow dir="up-right" />
               </a>
             )}
           </div>
@@ -231,7 +226,7 @@ export default function Projects() {
   return (
     <section id="projects" ref={root} className="relative py-28 sm:py-36">
       <div className="container-x">
-        <SectionHeading index="05" label="Projects" title="Selected projects" />
+        <SectionHeading title="Things I've built" />
 
         <DepthWord word="Shipped" className="mt-12" maxSize={300} />
         <div>

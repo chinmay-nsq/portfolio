@@ -82,7 +82,7 @@ export default function Experience() {
   return (
     <section id="experience" ref={root} className="relative py-28 sm:py-36">
       <div className="container-x">
-        <SectionHeading index="03" label="Experience" title="Where I've worked" muted="and what I shipped." />
+        <SectionHeading title="Where I've worked" muted="and what I shipped." />
 
         <div data-timeline className="relative mt-20">
           {/* Spine (decorative) */}

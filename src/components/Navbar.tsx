@@ -156,7 +156,7 @@ export default function Navbar() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="relative grid h-10 w-10 place-items-center rounded-md border border-white/15 lg:hidden"
+              className="relative grid h-11 w-11 place-items-center rounded-md border border-white/15 lg:hidden"
             >
               <span className={`absolute h-px w-5 bg-white transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-1.5"}`} />
               <span className={`absolute h-px w-5 bg-white transition-opacity duration-300 ${open ? "opacity-0" : ""}`} />

@@ -35,15 +35,14 @@ export const navLinks = [
 export const heroRoles = [
   "scalable APIs",
   "mobile apps for 5,000+ users",
-  "AI recruitment tech",
+  "AI hiring tools",
   "cloud-native backends",
 ];
 
 export const stats = [
-  { value: 5000, suffix: "+", label: "Daily active users served" },
-  { value: 99.9, suffix: "%", label: "Production uptime on AWS", decimals: 1 },
-  { value: 25, suffix: "+", label: "REST APIs designed & shipped" },
-  { value: 450, suffix: "+", label: "LeetCode problems solved" },
+  { value: 5000, suffix: "+", label: "People using my app every day" },
+  { value: 99.9, suffix: "%", label: "Uptime I kept on AWS", decimals: 1 },
+  { value: 25, suffix: "+", label: "REST APIs I've designed and shipped" },
 ];
 
 export const currentMission = {
@@ -52,7 +51,7 @@ export const currentMission = {
   company: "Nsquare Experts",
   role: "Software Engineer",
   description:
-    "I'm part of the team building GenieHire at Nsquare Experts — an AI-powered recruitment platform that connects talent with the teams that need them, faster and smarter.",
+    "I'm on the team at Nsquare Experts building GenieHire, an AI recruitment platform that matches candidates with the companies looking for them.",
   /** Add a URL here to show a “Visit GenieHire” button. */
   href: "",
 };
@@ -75,7 +74,7 @@ export const experience: Job[] = [
     location: "India",
     current: true,
     points: [
-      "Building GenieHire — an AI-powered recruitment platform — as part of the product engineering team.",
+      "I'm on the product engineering team building GenieHire, an AI-powered recruitment platform.",
     ],
     tags: ["AI Recruitment", "Product Engineering"],
   },
@@ -85,10 +84,10 @@ export const experience: Job[] = [
     period: "Feb 2025 — Sept 2025",
     location: "Pune, Maharashtra",
     points: [
-      "Engineered and maintained a cross-platform React Native app for iOS and Android, reaching 5,000+ daily active users.",
-      "Created 10+ backend APIs in Node.js (TypeScript) with DynamoDB, cutting response time by 40ms and improving load performance.",
-      "Managed deployment on AWS EC2, ensuring 99.9% uptime while supporting 5,000+ daily users.",
-      "Programmed a Python script to scrape and seed 1,000+ posts, expanding in-app content volume.",
+      "I built and maintained the company's React Native app for iOS and Android. It grew to 5,000+ daily active users.",
+      "On the backend I wrote 10+ APIs in Node.js (TypeScript) with DynamoDB and cut response times by 40ms, so the app loaded faster.",
+      "I also ran the deployment on AWS EC2 and kept it at 99.9% uptime for those 5,000+ daily users.",
+      "To grow the amount of content in the app, I wrote a Python script that scraped and seeded 1,000+ posts.",
     ],
     tags: ["React Native", "Node.js", "TypeScript", "DynamoDB", "AWS EC2", "Python"],
   },
@@ -98,8 +97,8 @@ export const experience: Job[] = [
     period: "Aug 2024 — Feb 2025",
     location: "Pune, Maharashtra",
     points: [
-      "Built a responsive web application from scratch with Vite, React and Tailwind CSS — 15+ reusable components and sub-200ms page loads on desktop and mobile.",
-      "Improved SEO through meta-tag optimisation, structured data and performance tuning: +20% organic search ranking across 15+ target keywords.",
+      "I built a responsive web app from scratch with Vite, React and Tailwind CSS: 15+ reusable components, and pages that load in under 200ms on desktop and mobile.",
+      "I worked on SEO too. Better meta tags, structured data and performance fixes lifted our organic ranking by 20% across 15+ target keywords.",
     ],
     tags: ["React", "Vite", "Tailwind CSS", "SEO"],
   },
@@ -109,10 +108,10 @@ export const experience: Job[] = [
     period: "Apr 2024 — Aug 2024",
     location: "Remote",
     points: [
-      "Developed an automatic invoice generator with React.js, Tailwind CSS, Node.js (TS) and MongoDB, cutting manual work by 80%.",
-      "Added Redis caching to speed up invoice retrieval, decreasing average response time by 40%.",
-      "Designed and implemented 15+ REST APIs for invoice creation, history tracking and PDF export.",
-      "Refined MongoDB queries and backend logic for a 30% server-performance gain under load testing.",
+      "I built an automatic invoice generator with React.js, Tailwind CSS, Node.js (TS) and MongoDB. It cut the manual work by 80%.",
+      "Invoice lookups were slow, so I added Redis caching and brought the average response time down by 40%.",
+      "I designed and built 15+ REST APIs for creating invoices, tracking their history and exporting them as PDFs.",
+      "Tuning the MongoDB queries and backend logic gave the server a 30% performance gain under load testing.",
     ],
     tags: ["React.js", "Node.js", "MongoDB", "Redis"],
   },
@@ -177,7 +176,6 @@ export const marqueeWords = [
 
 export type Project = {
   id: string;
-  code: string;
   name: string;
   tagline: string;
   period: string;
@@ -192,14 +190,13 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "linkforge",
-    code: "M-01",
     name: "LinkForge",
-    tagline: "Professional link management hub",
+    tagline: "All your links on one page",
     period: "Aug – Sept 2025",
     points: [
-      "Customizable bio-link aggregator on Next.js and Express.js — creators consolidate socials, portfolios and business contacts into one landing page with 5+ link types.",
-      "Analytics dashboard on PostgreSQL: click-through metrics, geographic data and engagement patterns at 99% tracking accuracy.",
-      "Theme engine with 20+ pre-built themes and a drag-and-drop editor, fully mobile-responsive.",
+      "A bio-link builder I made with Next.js and Express.js. Creators put their socials, portfolio and business contacts on one landing page, using 5+ link types.",
+      "I built an analytics dashboard on PostgreSQL that tracks click-throughs, where visitors come from and how they engage, with 99% tracking accuracy.",
+      "It comes with 20+ themes and a drag-and-drop editor, and it works just as well on a phone.",
     ],
     tags: ["Next.js", "Express.js", "PostgreSQL"],
     live: "",
@@ -208,14 +205,13 @@ export const projects: Project[] = [
   },
   {
     id: "slatx",
-    code: "M-02",
     name: "SlatX",
-    tagline: "Collaborative workspace management tool",
+    tagline: "A shared workspace for pages and docs",
     period: "Aug – Sept 2025",
     points: [
-      "Workspace built on Next.js and PostgreSQL with hierarchical page organisation, rich-text editing and document management (10+ formatting options).",
-      "Real-time content rendering and auto-save with 95% data-persistence accuracy and instant preview.",
-      "Tuned indexing and queries with Prisma + PostgreSQL to hit 300ms page loads across 100+ documents and nested folders.",
+      "A workspace on Next.js and PostgreSQL where you nest pages inside each other, write in a rich-text editor with 10+ formatting options, and manage documents.",
+      "Content renders as you type and saves on its own, with 95% data-persistence accuracy and an instant preview.",
+      "I tuned the indexes and queries in Prisma + PostgreSQL until pages loaded in 300ms, even with 100+ documents in nested folders.",
     ],
     tags: ["Next.js", "PostgreSQL", "Prisma"],
     live: "",
@@ -224,14 +220,13 @@ export const projects: Project[] = [
   },
   {
     id: "springcart",
-    code: "M-03",
     name: "SpringCart",
-    tagline: "Full-stack e-commerce platform",
+    tagline: "An online store, built end to end",
     period: "July – Aug 2025",
     points: [
-      "Spring Boot + PostgreSQL backend with authentication, product catalog and cart across 25+ categories.",
-      "Responsive Next.js storefront with pagination for 200+ products at ~100ms load times.",
-      "JWT login/signup with session persistence (99.8% auth reliability) and a cart-to-checkout flow with zero data loss.",
+      "I wrote the Spring Boot + PostgreSQL backend: authentication, a product catalog and a cart, across 25+ categories.",
+      "The Next.js storefront paginates 200+ products and loads in about 100ms.",
+      "JWT login and signup keep sessions alive (99.8% auth reliability), and the cart-to-checkout flow has zero data loss.",
     ],
     tags: ["Spring Boot", "Next.js", "PostgreSQL", "JWT"],
     live: "",
@@ -257,27 +252,27 @@ export const achievements: Achievement[] = [
     count: 450,
     suffix: "+",
     title: "LeetCode problems",
-    text: "Solved across a wide range of topics, sharpening data-structure and algorithm fundamentals.",
+    text: "I've solved them across a wide range of topics. It's how I keep my data-structure and algorithm basics sharp.",
     icon: "code",
     logo: "leetcode",
   },
   {
     value: "2nd",
     title: "CSESA Hackathon",
-    text: "Led a team to second place — leadership, technical design and rapid prototyping under pressure.",
+    text: "I led our team to second place. It taught me a lot about leading people, technical design and building a prototype fast under pressure.",
     icon: "trophy",
   },
   {
     value: "1 of 12",
     title: "Avishkar finalist",
-    text: "Finalist among 12 teams at the State-Level Avishkar Competition with an agricultural innovation project.",
+    text: "I made the final 12 teams at the state-level Avishkar competition with an agricultural innovation project.",
     icon: "flag",
   },
   {
     value: "6",
     count: 6,
     title: "Google Cloud badges",
-    text: "Digital badges in cloud architecture and data engineering from Google Cloud Skill Boost.",
+    text: "I earned these on Google Cloud Skills Boost, in cloud architecture and data engineering.",
     icon: "cloud",
     logo: "googlecloud",
   },
@@ -294,7 +289,7 @@ export const education = [
   {
     school: "Sangmeshwar College",
     place: "Solapur",
-    degree: "Class 12 (HSC) — Physics, Chemistry, Mathematics",
+    degree: "Class 12 (HSC): Physics, Chemistry, Mathematics",
     period: "Jun 2018 — May 2020",
     note: "",
   },

@@ -9,6 +9,7 @@ import { profile, heroRoles } from "@/data/portfolio";
 import { useIntro } from "../IntroContext";
 import { EarthLimb } from "../Scenery";
 import Magnetic from "../ui/Magnetic";
+import Arrow from "../ui/Arrow";
 
 /**
  * Hero backdrop. `earth` is the default; open the site with `?hero=nebula` or `?hero=moon` to compare.
@@ -369,7 +370,7 @@ export default function Hero() {
           className={`relative z-30 md:mt-8 md:max-w-[min(42rem,calc(57vw-3.5rem))] ${variant === "nebula" ? "mt-8" : "mt-[46vw]"}`}
         >
           <p data-in className="flex flex-wrap items-baseline gap-x-2.5 font-display text-xl text-white/90 sm:text-2xl">
-            <span>Software Engineer building</span>
+            <span>I build</span>
             <span className="relative inline-block h-[1.35em] overflow-hidden align-bottom text-hud">
               <span ref={roles} className="block">
                 {[...heroRoles, heroRoles[0]].map((r, i) => (
@@ -382,9 +383,10 @@ export default function Hero() {
           </p>
 
           <p data-in className="mt-4 max-w-xl text-base leading-relaxed text-ink/75 sm:text-lg">
-            I turn complex problems into fast, reliable products — from a mobile app serving 5,000+
-            daily users to an AI-powered hiring platform. Off the keyboard I&apos;m usually looking
-            up: at the night sky, or at fighter jets crossing it.
+            I&apos;m a full-stack engineer based in Pune. I&apos;ve shipped a mobile app that 5,000+
+            people use every day, and right now I&apos;m building an AI hiring platform. Away from
+            the keyboard I&apos;m usually looking up, at the night sky or the fighter jets crossing
+            it.
           </p>
 
           <div data-in className="mt-6 flex flex-wrap gap-3">
@@ -397,7 +399,7 @@ export default function Hero() {
                   scrollTo("#projects");
                 }}
               >
-                View projects <span aria-hidden>→</span>
+                See my work <Arrow />
               </a>
             </Magnetic>
             <Magnetic strength={0.15}>
