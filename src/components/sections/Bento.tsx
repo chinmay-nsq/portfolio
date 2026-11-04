@@ -11,6 +11,31 @@ const DRIVERS = [
   ["Node.js", "Express.js", "Spring Boot", "PostgreSQL", "MongoDB", "DynamoDB", "Redis", "AWS", "Docker", "Git / GitHub", "Postman", "Figma"],
 ];
 
+function GitHubMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+      <path d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0012 .3z" />
+    </svg>
+  );
+}
+
+function LinkedInMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+      <path d="M4.98 3.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM3 9.75h4v11H3v-11zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.15-.02-2.64-1.6-2.64-1.62 0-1.86 1.26-1.86 2.56v4.92h-4v-11z" />
+    </svg>
+  );
+}
+
+function MailMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="M4 7l8 6 8-6" />
+    </svg>
+  );
+}
+
 const at = (area: string, i: number) => ({ gridArea: area, "--i": i }) as React.CSSProperties;
 
 function Arrow() {
@@ -70,12 +95,18 @@ export default function Bento() {
           </div>
         </div>
 
-        {/* apis */}
+        {/* backend */}
         <div data-reveal className="tile flex flex-col justify-between" style={at("uptime", 3)}>
-          <p className="tile-label">APIs shipped</p>
+          <p className="tile-label">Backend at heart</p>
           <div>
-            <p className="tile-big text-[clamp(2.6rem,4vw,3.4rem)]">25+</p>
-            <p className="mt-2 text-[14px] leading-snug text-ink-2">REST APIs, designed and shipped. Node.js and TypeScript, mostly.</p>
+            <p className="font-mono text-[13px] text-ink-2">
+              <span className="font-medium text-blue">GET</span> /api/chinmay
+            </p>
+            <p className="tile-big mt-1 flex items-center gap-2 text-[clamp(2.4rem,3.6vw,3rem)]">
+              <span className="h-3 w-3 shrink-0 rounded-full bg-led" aria-hidden="true" />
+              200 OK
+            </p>
+            <p className="mt-2 text-[14px] leading-snug text-ink-2">APIs, caching, queries and deploys. Happiest on the side of the app nobody sees.</p>
           </div>
         </div>
 
@@ -155,22 +186,29 @@ export default function Bento() {
         </a>
 
         {/* social */}
-        <div data-reveal className="tile flex flex-col justify-between" style={at("social", 10)}>
-          <p className="tile-label">Elsewhere</p>
-          <ul className="space-y-1">
+        <div data-reveal className="tile flex flex-col justify-between !p-3" style={at("social", 10)}>
+          <p className="tile-label px-3 pt-2">Find me elsewhere</p>
+          <ul className="space-y-0.5">
             {[
-              { label: "LinkedIn", href: profile.linkedin },
-              { label: "GitHub", href: profile.github },
+              { label: "GitHub", handle: "@ChinmayLale", href: profile.github, icon: <GitHubMark />, tone: "bg-ink text-white" },
+              { label: "LinkedIn", handle: "in/ChinmayLale", href: profile.linkedin, icon: <LinkedInMark />, tone: "bg-blue text-white" },
+              { label: "Email", handle: "the fastest way", href: `mailto:${profile.email}`, icon: <MailMark />, tone: "bg-sun text-ink" },
             ].map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
-                  target="_blank"
+                  target={l.href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="flex items-center justify-between rounded-xl px-3 py-2.5 font-medium transition-colors hover:bg-page"
+                  className="group flex items-center gap-3 rounded-2xl p-1.5 transition-colors duration-150 hover:bg-page"
                 >
-                  {l.label}
-                  <Arrow />
+                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ${l.tone}`}>{l.icon}</span>
+                  <span className="min-w-0 flex-1 leading-tight">
+                    <span className="block font-medium">{l.label}</span>
+                    <span className="block truncate text-[13px] text-ink-2">{l.handle}</span>
+                  </span>
+                  <span className="mr-1 text-ink-3 transition-[translate,color] duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink">
+                    <Arrow />
+                  </span>
                 </a>
               </li>
             ))}

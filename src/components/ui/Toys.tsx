@@ -45,27 +45,40 @@ export function Clock() {
   );
 }
 
-/* ───────────── Terminal: tap it and it installs something ───────────── */
+/* ───────────── Terminal: tap it and it runs another (questionable) command ───────────── */
 
 const SESSIONS = [
   ["npm i -g new-thing", "added 1 package. now what?"],
-  ["git clone cool-repo", "cloned. skimming the README."],
+  ["git push --force", "just kidding. never on main."],
+  ["git commit -m \"final final v2\"", "1 file changed, 0 regrets."],
+  ["rm -rf node_modules", "freed 2.3 GB. reinstalling anyway."],
+  ["git blame", "it was me. it's always me."],
+  ["npm run build", "works on my machine."],
+  ["sudo make me a sandwich", "nice try."],
   ["docker run why-not", "running. no idea why yet."],
+  ["curl wttr.in/pune", "warm. obviously."],
   ["apt install curiosity", "already the newest version."],
 ];
 
+function Caret() {
+  return <span className="ml-1 inline-block h-[1.05em] w-[0.5em] translate-y-[2px] animate-pulse bg-white/80" aria-hidden="true" />;
+}
+
 export function Terminal() {
   const [n, setN] = useState(-1);
+  const [prev, setPrev] = useState(-1);
   const [typed, setTyped] = useState("");
   const [done, setDone] = useState(false);
   const timer = useRef<number | undefined>(undefined);
-
-  useEffect(() => () => window.clearInterval(timer.current), []);
+  const self = useRef<HTMLButtonElement>(null);
+  const current = useRef(-1);
 
   const run = () => {
-    const next = (n + 1) % SESSIONS.length;
+    const next = (current.current + 1) % SESSIONS.length;
     const [cmd] = SESSIONS[next];
     window.clearInterval(timer.current);
+    setPrev(current.current);
+    current.current = next;
     setN(next);
     setDone(false);
     if (reduceMotion()) {
@@ -85,28 +98,63 @@ export function Terminal() {
     }, 40);
   };
 
+  // types its first command by itself the first time it scrolls into view
+  useEffect(() => {
+    const el = self.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        window.setTimeout(() => {
+          if (current.current < 0) run();
+        }, 700);
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      window.clearInterval(timer.current);
+    };
+  }, []);
+
   return (
-    <button type="button" onClick={run} className="press flex h-full w-full flex-col text-left" aria-label="Terminal: install something">
+    <button ref={self} type="button" onClick={run} className="press flex h-full w-full flex-col text-left" aria-label="Terminal: run another command">
       <span className="flex items-center gap-1.5" aria-hidden="true">
         <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
         <span className="ml-3 font-mono text-[12px] text-white/40">~/side-quests</span>
       </span>
-      <span className="mt-5 block flex-1 font-mono text-[13px] leading-[1.7] text-white/90 sm:text-[14px]" aria-live="polite">
+      <span className="mt-4 block min-h-0 flex-1 overflow-hidden font-mono text-[13px] leading-[1.6] text-white/90 sm:text-[14px]" aria-live="polite">
+        {prev >= 0 && (
+          <span className="block text-white/30">
+            <span className="block">$ {SESSIONS[prev][0]}</span>
+            <span className="block">{SESSIONS[prev][1]}</span>
+          </span>
+        )}
         {n < 0 ? (
-          <span className="text-white/45"># tap to install something</span>
+          <span className="block text-white/45">
+            # tap to run something
+            <Caret />
+          </span>
         ) : (
           <>
             <span className="block">
               <span className="text-sun">$</span> {typed}
+              {!done && <Caret />}
             </span>
-            {done && <span className="block text-white/45">{SESSIONS[n][1]}</span>}
+            {done && (
+              <span className="block text-white/55">
+                {SESSIONS[n][1]}
+                <Caret />
+              </span>
+            )}
           </>
         )}
-        <span className="inline-block h-[1.1em] w-[0.55em] translate-y-[3px] animate-pulse bg-white/80" aria-hidden="true" />
       </span>
-      <span className="text-[14px] text-white/55">Side quest: installing things just to see what they do.</span>
+      <span className="text-[14px] text-white/55">Tap for another command. There are a few.</span>
     </button>
   );
 }
