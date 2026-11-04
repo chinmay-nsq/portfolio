@@ -106,9 +106,9 @@ export default function Bento() {
               <span className="h-3 w-3 shrink-0 rounded-full bg-led" aria-hidden="true" />
               200 OK
             </p>
-            <p className="mt-2 text-[14px] leading-snug text-ink-2">
-              Reads error logs the way some people read novels. Notices a 50ms delay. Can&apos;t un‑notice it. Has to
-              fix it.
+            <p className="mt-2 text-[14px] leading-snug">
+              <span className="block text-ink">Reads error logs like novels.</span>
+              <span className="block text-ink-2">Can&apos;t unsee a 50ms delay.</span>
             </p>
           </div>
         </div>
