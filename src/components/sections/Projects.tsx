@@ -80,7 +80,7 @@ export default function Projects() {
     <section id="projects" className="shell scroll-mt-20 pt-28">
       <div data-reveal className="flex flex-wrap items-end justify-between gap-4 px-1">
         <h2 className="section-title">Projects</h2>
-        <p className="max-w-[34ch] text-ink-2">Three apps I built front to back, because reading about a stack only gets you so far.</p>
+        <p className="max-w-[34ch] text-ink-2">Three apps, built front to back, because reading about a stack only gets you so far.</p>
       </div>
 
       <ul className="mt-6 grid gap-3 lg:grid-cols-3">

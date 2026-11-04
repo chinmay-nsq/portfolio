@@ -129,7 +129,7 @@ dd {
   @media (min-width: 1024px) {
     .bento {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: 210px;
+      grid-auto-rows: 224px;
       grid-template-areas:
         "intro intro clock now"
         "intro intro uptime esp"
@@ -141,6 +141,33 @@ dd {
   .section-title {
     @apply font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-none tracking-[-0.035em];
   }
+}
+
+/* Technology logos: single-colour SVG masks from /public/logos, painted in their brand colour */
+.tech-logo {
+  background-color: var(--brand);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* Daily drivers: two rows of chips drifting in opposite directions; pauses while you look */
+@keyframes drift {
+  to {
+    translate: -50% 0;
+  }
+}
+.drift {
+  animation: drift 38s linear infinite;
+}
+.drift-reverse {
+  animation-direction: reverse;
+}
+.drift-wrap:hover .drift {
+  animation-play-state: paused;
 }
 
 /*

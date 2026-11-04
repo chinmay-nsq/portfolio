@@ -6,14 +6,14 @@ const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "
 const hourIn = (d: Date) => Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "2-digit", hour12: false }).format(d));
 
 function status(h: number) {
-  if (h < 6) return "so I'm asleep. Email me anyway.";
-  if (h < 10) return "so I'm probably reading through yesterday's logs.";
-  if (h < 18) return "so I'm probably shipping something.";
-  if (h < 22) return "so I'm probably fixing what I shipped.";
-  return "so I'm probably on one more LeetCode problem.";
+  if (h < 6) return "Asleep. Email anyway.";
+  if (h < 10) return "Reading yesterday's logs.";
+  if (h < 18) return "Probably shipping something.";
+  if (h < 22) return "Probably fixing what got shipped.";
+  return "One more LeetCode problem, probably.";
 }
 
-/** "It's 9:42 pm in Pune, so I'm probably fixing what I shipped." Renders after mount so it never mismatches the server. */
+/** "9:42 pm in Pune. Probably fixing what got shipped." Renders after mount so it never mismatches the server. */
 export default function LocalTime({ className = "" }: { className?: string }) {
   const [now, setNow] = useState<Date | null>(null);
 
@@ -33,7 +33,7 @@ export default function LocalTime({ className = "" }: { className?: string }) {
       <span className="min-h-[1lh]">
         {now ? (
           <>
-            It&apos;s <span className="tabular-nums">{fmt.format(now).toLowerCase()}</span> in Pune, {status(hourIn(now))}
+            <span className="tabular-nums">{fmt.format(now).toLowerCase()}</span> in Pune. {status(hourIn(now))}
           </>
         ) : (
           "Based in Pune, India."

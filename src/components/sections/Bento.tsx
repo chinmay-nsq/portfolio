@@ -4,8 +4,40 @@ import { useState } from "react";
 import { education, profile } from "@/data/portfolio";
 import { Clock, LedBoard, Shuttle, Terminal } from "../ui/Toys";
 import LocalTime from "../ui/LocalTime";
+import TechLogo from "../ui/TechLogo";
 
-const STACK = ["TypeScript", "React", "Next.js", "Node.js", "React Native", "PostgreSQL", "MongoDB", "Redis", "AWS", "Docker"];
+const DRIVERS = [
+  ["TypeScript", "JavaScript", "React", "Next.js", "React Native", "Redux", "Tailwind CSS", "Python", "Java"],
+  ["Node.js", "Express.js", "Spring Boot", "PostgreSQL", "MongoDB", "DynamoDB", "Redis", "AWS", "Docker", "Git / GitHub", "Postman", "Figma"],
+];
+
+type PillTone = "blue" | "sun" | "ink" | "soft";
+const PILL: Record<PillTone, string> = {
+  blue: "bg-blue text-white",
+  sun: "bg-sun text-ink",
+  ink: "bg-ink text-white",
+  soft: "bg-page text-ink",
+};
+
+/** A small coloured token that sits inside a sentence, with an optional icon. */
+function Pill({ tone, icon, children }: { tone: PillTone; icon?: string; children: React.ReactNode }) {
+  return (
+    <span className={`mx-[0.08em] inline-flex items-center gap-[0.28em] whitespace-nowrap rounded-full px-[0.48em] py-[0.04em] align-[0.06em] text-[0.8em] font-medium leading-[1.3] tracking-normal ${PILL[tone]}`}>
+      {icon && (
+        <svg viewBox="0 0 16 16" className="h-[0.9em] w-[0.9em]" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d={icon} />
+        </svg>
+      )}
+      {children}
+    </span>
+  );
+}
+
+const ICON = {
+  people: "M6 7a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.5 13.5c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4M11 2.2a2.5 2.5 0 010 4.6M12.5 9.6c1.3.5 2 1.8 2 3.9",
+  spark: "M8 1.5v3M8 11.5v3M1.5 8h3M11.5 8h3M3.4 3.4l2 2M10.6 10.6l2 2M3.4 12.6l2-2M10.6 5.4l2-2",
+  chip: "M4.5 4.5h7v7h-7zM6.5 2v2.5M9.5 2v2.5M6.5 11.5V14M9.5 11.5V14M2 6.5h2.5M2 9.5h2.5M11.5 6.5H14M11.5 9.5H14",
+};
 
 const at = (area: string, i: number) => ({ gridArea: area, "--i": i }) as React.CSSProperties;
 
@@ -28,13 +60,30 @@ export default function Bento() {
         {/* intro */}
         <div data-reveal className="tile flex flex-col justify-between p-7 sm:p-9" style={at("intro", 0)}>
           <div>
-            <p className="text-ink-2">Hi, I&apos;m {profile.firstName}.</p>
-            <h1 className="mt-3 font-display text-[clamp(2.1rem,4.4vw,3.4rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
-              I build software that <span className="text-blue">5,000+ people</span> use every day.
+            <h1 className="text-[15px] text-ink-2">
+              <span className="font-medium text-ink">{profile.name}</span> · <span className="whitespace-nowrap">Full-stack engineer</span>, {profile.city}
             </h1>
-            <p className="mt-4 max-w-[46ch] text-ink-2">
-              Full-stack engineer in {profile.city}. React, Node.js, React Native and AWS, mostly. Off the clock: laptop
-              experiments, an ESP32 and badminton. They&apos;re all on this board, go ahead and poke them.
+            <p className="mt-5 font-display text-[clamp(1.55rem,2.5vw,2.1rem)] font-medium leading-[1.25] tracking-[-0.025em] text-[#71717a]">
+              Writes the <span className="text-ink">kind of software you never notice</span>, because it simply works
+              for the{" "}
+              <Pill tone="sun" icon={ICON.people}>
+                5,000+ people
+              </Pill>{" "}
+              using it every day.
+            </p>
+            <p className="mt-4 max-w-[52ch] text-[15px] leading-[1.9] text-ink-2">
+              Now building{" "}
+              <Pill tone="blue" icon={ICON.spark}>
+                GenieHire
+              </Pill>{" "}
+              at {profile.company}. After hours: an{" "}
+              <span className="whitespace-nowrap">
+                <Pill tone="soft" icon={ICON.chip}>
+                  ESP32
+                </Pill>
+                ,
+              </span>{" "}
+              a badminton racket and a very experimental laptop.
             </p>
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -42,7 +91,7 @@ export default function Bento() {
               Email me
             </a>
             <a href="#work" className="btn btn-soft">
-              See my work
+              See the work
             </a>
           </div>
         </div>
@@ -64,12 +113,12 @@ export default function Bento() {
           </div>
         </div>
 
-        {/* uptime */}
+        {/* apis */}
         <div data-reveal className="tile flex flex-col justify-between" style={at("uptime", 3)}>
-          <p className="tile-label">Uptime I kept on AWS</p>
+          <p className="tile-label">APIs shipped</p>
           <div>
-            <p className="tile-big text-[clamp(2.6rem,4vw,3.4rem)]">99.9%</p>
-            <p className="mt-2 text-[14px] leading-snug text-ink-2">For an app with 5,000+ daily users. The 0.1% taught me a lot.</p>
+            <p className="tile-big text-[clamp(2.6rem,4vw,3.4rem)]">25+</p>
+            <p className="mt-2 text-[14px] leading-snug text-ink-2">REST APIs, designed and shipped. Node.js and TypeScript, mostly.</p>
           </div>
         </div>
 
@@ -79,7 +128,7 @@ export default function Bento() {
             <LedBoard on={led} onToggle={() => setLed((v) => !v)} />
           </div>
           <p className="mt-2 text-center text-[13px] text-ink-2" aria-live="polite">
-            {led ? "It blinks. Hello, world." : "My ESP32. Tap the LED."}
+            {led ? "It blinks. Hello, world." : "The ESP32. Tap the LED."}
           </p>
         </div>
 
@@ -103,20 +152,32 @@ export default function Bento() {
           <p className="tile-label">Manual invoicing work</p>
           <div>
             <p className="tile-big text-[clamp(2.6rem,4vw,3.4rem)]">−80%</p>
-            <p className="mt-2 text-[14px] leading-snug text-ink-2">After the invoice generator I built at Aarya Global.</p>
+            <p className="mt-2 text-[14px] leading-snug text-ink-2">Thanks to an invoice generator built at Aarya Global.</p>
           </div>
         </div>
 
-        {/* stack */}
-        <div data-reveal className="tile flex flex-col justify-between" style={at("stack", 8)}>
-          <p className="tile-label">Daily drivers</p>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {STACK.map((s) => (
-              <li key={s} className="chip">
-                {s}
-              </li>
+        {/* daily drivers */}
+        <div data-reveal className="tile drift-wrap flex flex-col !px-0" style={at("stack", 8)}>
+          <div className="flex items-baseline justify-between gap-4 px-6">
+            <p className="tile-label">Daily drivers</p>
+            <p className="text-[13px] text-ink-3">The tools that pay the rent</p>
+          </div>
+          <div className="flex flex-1 flex-col justify-center gap-2 pt-4 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
+            {DRIVERS.map((row, r) => (
+              <div key={r} className="overflow-hidden">
+                <ul className={`drift flex w-max ${r % 2 ? "drift-reverse" : ""}`}>
+                  {[...row, ...row].map((name, i) => (
+                    <li key={i} className="pr-2" aria-hidden={i >= row.length || undefined}>
+                      <span className="chip gap-2 !h-10 !px-3.5 !text-[15px]">
+                        <TechLogo name={name} className="h-4 w-4" />
+                        {name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
         {/* education */}

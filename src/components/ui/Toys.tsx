@@ -106,7 +106,7 @@ export function Terminal() {
         )}
         <span className="inline-block h-[1.1em] w-[0.55em] translate-y-[3px] animate-pulse bg-white/80" aria-hidden="true" />
       </span>
-      <span className="text-[14px] text-white/55">I install things just to see what they do.</span>
+      <span className="text-[14px] text-white/55">Side quest: installing things just to see what they do.</span>
     </button>
   );
 }

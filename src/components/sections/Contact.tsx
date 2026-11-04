@@ -22,7 +22,7 @@ export default function Contact() {
       <div data-reveal className="tile bg-blue p-8 text-white sm:p-12">
         <p className="text-white/75">Got something to build?</p>
         <h2 className="mt-3 max-w-[16ch] font-display text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[0.98] tracking-[-0.04em]">
-          Let&apos;s talk. I reply faster than my builds run.
+          Let&apos;s talk. Replies land faster than the builds.
         </h2>
         <p className="mt-5 max-w-[48ch] text-white/80">
           Hiring, starting a project, or just want to argue about tabs versus spaces. Email is the fastest way to reach me.

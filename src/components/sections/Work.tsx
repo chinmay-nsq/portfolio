@@ -15,7 +15,7 @@ export default function Work() {
     <section id="work" className="shell scroll-mt-20 pt-28">
       <div data-reveal className="flex flex-wrap items-end justify-between gap-4 px-1">
         <h2 className="section-title">Work</h2>
-        <p className="max-w-[34ch] text-ink-2">Three companies so far. Tap a row to see what I shipped there.</p>
+        <p className="max-w-[34ch] text-ink-2">Three companies so far. Tap a row to see what shipped.</p>
       </div>
 
       <ol data-reveal className="tile mt-6 p-2 sm:p-3">

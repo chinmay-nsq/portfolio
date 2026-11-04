@@ -15,8 +15,8 @@ export const siteMeta = {
   title: "Chinmay Lale — Software Engineer (React, Node.js, AWS)",
   shortTitle: "Chinmay Lale — Software Engineer",
   description:
-    "I'm a software engineer in India, building GenieHire, an AI recruitment platform, at Nsquare Experts. I work across the stack with React, Next.js, Node.js, React Native and AWS.",
+    "Full-stack software engineer in Pune, India, building GenieHire, an AI recruitment platform, at Nsquare Experts. React, Next.js, Node.js, React Native and AWS, plus an ESP32 and a badminton racket.",
   locale: "en_IN",
-  ogImage: { path: "/og.jpg", width: 1200, height: 630, alt: "Chinmay Lale: I build software that 5,000+ people use every day. A bento board with a clock, an ESP32 and a terminal." },
+  ogImage: { path: "/og.jpg", width: 1200, height: 630, alt: "Chinmay Lale, full-stack engineer: writes the kind of software you never notice, used by 5,000+ people every day." },
   themeColor: "#f4f4f5",
 } as const;
