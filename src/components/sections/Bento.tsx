@@ -102,11 +102,14 @@ export default function Bento() {
             <p className="font-mono text-[13px] text-ink-2">
               <span className="font-medium text-blue">GET</span> /api/chinmay
             </p>
-            <p className="tile-big mt-1 flex items-center gap-2 text-[clamp(2.4rem,3.6vw,3rem)]">
+            <p className="tile-big mt-1 flex items-center gap-2 whitespace-nowrap text-[clamp(1.9rem,3.6vw,3rem)]">
               <span className="h-3 w-3 shrink-0 rounded-full bg-led" aria-hidden="true" />
               200 OK
             </p>
-            <p className="mt-2 text-[14px] leading-snug text-ink-2">APIs, caching, queries and deploys. Happiest on the side of the app nobody sees.</p>
+            <p className="mt-2 text-[14px] leading-snug text-ink-2">
+              Reads error logs the way some people read novels. Notices a 50ms delay. Can&apos;t un‑notice it. Has to
+              fix it.
+            </p>
           </div>
         </div>
 
