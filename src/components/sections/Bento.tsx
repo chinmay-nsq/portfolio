@@ -122,11 +122,11 @@ export default function Bento() {
               <span className="text-[#71717a]">
                 Everything works. Then I think,
               </span>{" "}
-              "what if...?" You know the rest.
+              &quot;what if...?&quot; You know the rest.
             </p>
 
             <p className="mt-4 text-[16px] text-ink-2">
-              This is why I can't have a boring weekend.
+              This is why I can&apos;t have a boring weekend.
             </p>
           </div>
 
