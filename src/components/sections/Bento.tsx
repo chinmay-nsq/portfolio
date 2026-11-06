@@ -187,9 +187,9 @@ export default function Bento() {
               <span className="block text-ink">
                 Reads error logs like novels.
               </span>
-              <span className="block text-ink-2">
+              {/* <span className="block text-ink-2">
                 Can&apos;t unsee a 50ms delay.
-              </span>
+              </span> */}
             </p>
           </div>
         </div>
